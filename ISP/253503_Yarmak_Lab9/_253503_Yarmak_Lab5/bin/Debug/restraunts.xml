@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ArrayOfRestaurant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Restaurant>
+    <kitchens>
+      <Kitchen>
+        <ShieffName>Ivan</ShieffName>
+        <AmountOfDishes>55</AmountOfDishes>
+      </Kitchen>
+      <Kitchen>
+        <ShieffName>Siarhey</ShieffName>
+        <AmountOfDishes>12</AmountOfDishes>
+      </Kitchen>
+    </kitchens>
+    <Name>Michel</Name>
+  </Restaurant>
+  <Restaurant>
+    <kitchens>
+      <Kitchen>
+        <ShieffName>Vero</ShieffName>
+        <AmountOfDishes>88</AmountOfDishes>
+      </Kitchen>
+      <Kitchen>
+        <ShieffName>Ksenia</ShieffName>
+        <AmountOfDishes>99</AmountOfDishes>
+      </Kitchen>
+    </kitchens>
+    <Name>CornFlowers</Name>
+  </Restaurant>
+</ArrayOfRestaurant>

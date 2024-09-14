@@ -1,0 +1,6 @@
+D:\Uni\ISP\MCHA_1L\MCHA_1L\bin\Debug\MCHA_1L.exe
+D:\Uni\ISP\MCHA_1L\MCHA_1L\bin\Debug\MCHA_1L.pdb
+D:\Uni\ISP\MCHA_1L\MCHA_1L\obj\Debug\MCHA_1L.csproj.AssemblyReference.cache
+D:\Uni\ISP\MCHA_1L\MCHA_1L\obj\Debug\MCHA_1L.csproj.CoreCompileInputs.cache
+D:\Uni\ISP\MCHA_1L\MCHA_1L\obj\Debug\MCHA_1L.exe
+D:\Uni\ISP\MCHA_1L\MCHA_1L\obj\Debug\MCHA_1L.pdb

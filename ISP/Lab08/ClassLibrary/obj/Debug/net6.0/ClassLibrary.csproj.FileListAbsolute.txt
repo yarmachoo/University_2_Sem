@@ -1,0 +1,22 @@
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ClassLibrary\bin\Debug\net6.0\ClassLibrary.deps.json
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ClassLibrary\bin\Debug\net6.0\ClassLibrary.dll
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ClassLibrary\bin\Debug\net6.0\ClassLibrary.pdb
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ClassLibrary\obj\Debug\net6.0\ClassLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ClassLibrary\obj\Debug\net6.0\ClassLibrary.AssemblyInfoInputs.cache
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ClassLibrary\obj\Debug\net6.0\ClassLibrary.AssemblyInfo.cs
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ClassLibrary\obj\Debug\net6.0\ClassLibrary.csproj.CoreCompileInputs.cache
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ClassLibrary\obj\Debug\net6.0\ClassLibrary.dll
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ClassLibrary\obj\Debug\net6.0\refint\ClassLibrary.dll
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ClassLibrary\obj\Debug\net6.0\ClassLibrary.pdb
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ClassLibrary\obj\Debug\net6.0\ref\ClassLibrary.dll
+D:\Uni\ISP\Lab08\ClassLibrary\bin\Debug\net6.0\ClassLibrary.deps.json
+D:\Uni\ISP\Lab08\ClassLibrary\bin\Debug\net6.0\ClassLibrary.dll
+D:\Uni\ISP\Lab08\ClassLibrary\bin\Debug\net6.0\ClassLibrary.pdb
+D:\Uni\ISP\Lab08\ClassLibrary\obj\Debug\net6.0\ClassLibrary.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\ISP\Lab08\ClassLibrary\obj\Debug\net6.0\ClassLibrary.AssemblyInfoInputs.cache
+D:\Uni\ISP\Lab08\ClassLibrary\obj\Debug\net6.0\ClassLibrary.AssemblyInfo.cs
+D:\Uni\ISP\Lab08\ClassLibrary\obj\Debug\net6.0\ClassLibrary.csproj.CoreCompileInputs.cache
+D:\Uni\ISP\Lab08\ClassLibrary\obj\Debug\net6.0\ClassLibrary.dll
+D:\Uni\ISP\Lab08\ClassLibrary\obj\Debug\net6.0\refint\ClassLibrary.dll
+D:\Uni\ISP\Lab08\ClassLibrary\obj\Debug\net6.0\ClassLibrary.pdb
+D:\Uni\ISP\Lab08\ClassLibrary\obj\Debug\net6.0\ref\ClassLibrary.dll

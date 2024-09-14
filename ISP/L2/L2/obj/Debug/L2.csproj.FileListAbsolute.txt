@@ -1,0 +1,6 @@
+D:\Uni\ISP\L2\L2\bin\Debug\L2.exe
+D:\Uni\ISP\L2\L2\bin\Debug\L2.pdb
+D:\Uni\ISP\L2\L2\obj\Debug\L2.csproj.AssemblyReference.cache
+D:\Uni\ISP\L2\L2\obj\Debug\L2.csproj.CoreCompileInputs.cache
+D:\Uni\ISP\L2\L2\obj\Debug\L2.exe
+D:\Uni\ISP\L2\L2\obj\Debug\L2.pdb

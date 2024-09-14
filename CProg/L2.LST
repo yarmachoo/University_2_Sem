@@ -1,0 +1,43 @@
+  ADDR B1 B2 B3 B4 thrass11.tmp                                     PAGE       1
+
+                    org $2000
+  2000 86 55        LDAA  #$55
+  2002 16           TAB
+  2003 C4 01        ANDB #%00000001
+  2005 50           NEGB
+  2006 D7 00        STAB $0000
+  2008 44           LSRA
+  2009 16           TAB
+  200A C4 01        ANDB #%00000001
+  200C 50           NEGB
+  200D D7 01        STAB  $0001
+  200F 44           LSRA
+  2010 16           TAB
+  2011 C4 01        ANDB #%00000001
+  2013 50           NEGB
+  2014 D7 02        STAB  $0002
+  2016 44           LSRA
+  2017 16           TAB
+  2018 C4 01        ANDB #%00000001
+  201A 50           NEGB
+  201B D7 03        STAB  $0003
+  201D 44           LSRA
+  201E 16           TAB
+  201F C4 01        ANDB #%00000001
+  2021 50           NEGB
+  2022 D7 04        STAB  $0004
+  2024 44           LSRA
+  2025 16           TAB
+  2026 C4 01        ANDB #%00000001
+  2028 50           NEGB
+  2029 D7 05        STAB  $0005
+  202B 44           LSRA
+  202C 16           TAB
+  202D C4 01        ANDB #%00000001
+  202F 50           NEGB
+  2030 D7 06        STAB  $0006
+  2032 44           LSRA
+  2033 16           TAB
+  2034 C4 01        ANDB #%00000001
+  2036 50           NEGB
+  2037 D7 07        STAB  $0007

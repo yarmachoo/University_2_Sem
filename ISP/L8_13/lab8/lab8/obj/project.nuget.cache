@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "R5ezeMkWTHE9j0A5kQUFeqLZFM+Nu4IAVbLm6koHBURmBdM9Z0K7EGLkdaA4v9DP7+kP0HV++SoTdGziNJrHZg==",
+  "success": true,
+  "projectFilePath": "D:\\Uni\\ISP\\L8_13\\lab8\\lab8\\lab8.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\veron\\.nuget\\packages\\loremnet\\2.0.0\\loremnet.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

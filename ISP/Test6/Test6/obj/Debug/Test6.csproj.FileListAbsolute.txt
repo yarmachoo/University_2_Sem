@@ -1,0 +1,6 @@
+D:\Uni\ISP\Test6\Test6\bin\Debug\Test6.dll
+D:\Uni\ISP\Test6\Test6\bin\Debug\Test6.pdb
+D:\Uni\ISP\Test6\Test6\obj\Debug\Test6.csproj.AssemblyReference.cache
+D:\Uni\ISP\Test6\Test6\obj\Debug\Test6.csproj.CoreCompileInputs.cache
+D:\Uni\ISP\Test6\Test6\obj\Debug\Test6.dll
+D:\Uni\ISP\Test6\Test6\obj\Debug\Test6.pdb

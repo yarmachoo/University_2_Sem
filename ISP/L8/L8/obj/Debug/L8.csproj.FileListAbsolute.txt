@@ -1,0 +1,6 @@
+D:\Uni\ISP\L8\L8\bin\Debug\L8.exe
+D:\Uni\ISP\L8\L8\bin\Debug\L8.pdb
+D:\Uni\ISP\L8\L8\obj\Debug\L8.csproj.AssemblyReference.cache
+D:\Uni\ISP\L8\L8\obj\Debug\L8.csproj.CoreCompileInputs.cache
+D:\Uni\ISP\L8\L8\obj\Debug\L8.exe
+D:\Uni\ISP\L8\L8\obj\Debug\L8.pdb

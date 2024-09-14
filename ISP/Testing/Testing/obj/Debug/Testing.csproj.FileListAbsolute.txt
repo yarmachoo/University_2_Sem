@@ -1,0 +1,6 @@
+D:\Uni\ISP\Testing\Testing\bin\Debug\Testing.exe
+D:\Uni\ISP\Testing\Testing\bin\Debug\Testing.pdb
+D:\Uni\ISP\Testing\Testing\obj\Debug\Testing.csproj.AssemblyReference.cache
+D:\Uni\ISP\Testing\Testing\obj\Debug\Testing.csproj.CoreCompileInputs.cache
+D:\Uni\ISP\Testing\Testing\obj\Debug\Testing.exe
+D:\Uni\ISP\Testing\Testing\obj\Debug\Testing.pdb

@@ -1,0 +1,6 @@
+D:\Uni\ISP\Yarmak_Lab6\Yarmak_Lab6\bin\Debug\Yarmak_Lab6.exe
+D:\Uni\ISP\Yarmak_Lab6\Yarmak_Lab6\bin\Debug\Yarmak_Lab6.pdb
+D:\Uni\ISP\Yarmak_Lab6\Yarmak_Lab6\obj\Debug\Yarmak_Lab6.csproj.AssemblyReference.cache
+D:\Uni\ISP\Yarmak_Lab6\Yarmak_Lab6\obj\Debug\Yarmak_Lab6.csproj.CoreCompileInputs.cache
+D:\Uni\ISP\Yarmak_Lab6\Yarmak_Lab6\obj\Debug\Yarmak_Lab6.exe
+D:\Uni\ISP\Yarmak_Lab6\Yarmak_Lab6\obj\Debug\Yarmak_Lab6.pdb

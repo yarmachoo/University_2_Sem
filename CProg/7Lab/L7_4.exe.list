@@ -1,0 +1,666 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+L7_4.exe -- emu8086 assembler version: 4.05  
+ 
+[ 17.12.2023  --  21:30:03 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       ;.286
+[   2]        :                                       .model      small
+[   3]        :                                       .stack      100h
+[   4]        :                                       
+[   5]        :                                       .data
+[   6]    0100: 43 4F 4E 53 4F 4C 45 20 50 41 52 41   startMessage      db "CONSOLE PARAMETERS: ", '$'
+                4D 45 54 45 52 53 3A 20 24          
+[   7]    0115: 49 54 45 52 41 54 49 4F 4E 53 20 43   iterationsMsg     db "ITERATIONS COUNT: ", '$'
+                4F 55 4E 54 3A 20 24                
+[   8]    0128: 46 49 4C 45 4E 41 4D 45 3A 20 24      fileMsg           db "FILENAME: ", '$'
+[   9]    0133: 41 50 50 4C 49 43 41 54 49 4F 4E 20   applicationError  db "APPLICATION START ERROR!", '$'
+                53 54 41 52 54 20 45 52 52 4F 52 21 
+                24                                  
+[  10]    014C: 53 54 52 49 4E 47 20 4E 55 4D 42 45   stringMsg         db "STRING NUMBER: ", '$'
+                52 3A 20 24                         
+[  11]    015C: 45 4E 54 45 52 20 43 4F 52 52 45 43   negativeExit      db "ENTER CORRECT NUMBER!", '$'
+                54 20 4E 55 4D 42 45 52 21 24       
+[  12]    0172: 41 4C 4C 4F 43 41 54 49 4E 47 20 4D   allocatingError   db "ALLOCATING MEMORY ERROR!", '$'
+                45 4D 4F 52 59 20 45 52 52 4F 52 21 
+                24                                  
+[  13]    018B: 53 54 41 52 54 55 50 20 45 52 52 4F   startupError      db "STARTUP ERROR!", '$'
+                52 21 24                            
+[  14]    019A: 43 41 4E 4E 4F 54 20 4F 50 45 4E 20   badFileMessage    db "CANNOT OPEN FILE", 0dh, 0ah, '$'
+                46 49 4C 45 0D 0A 24                
+[  15]    01AD: 42 41 44 20 41 52 47 55 4D 45 4E 54   badArguments      db "BAD ARGUMENTS ERROR!", 0dh, 0ah, '$'
+                53 20 45 52 52 4F 52 21 0D 0A 24    
+[  16]    01C4: 45 52 52 4F 52 20 4F 50 45 4E 49 4E   fileError         db "ERROR OPENING FILE!", '$'
+                47 20 46 49 4C 45 21 24             
+[  17]    01D8: 42 41 44 20 46 49 4C 45 20 4E 41 4D   badFileName       db "BAD FILE NAME!", '$'
+                45 21 24                            
+[  18]        :                                       
+[  19]        :                                       partSize          equ 256
+[  20]    01E7: 00 00                                 wasPreviousLetter dw 0
+[  21]    01E9: 00 01                                 realPartSize      dw 256
+[  22]    01EB: 00 00                                 descriptor        dw 0
+[  23]    01ED: 00 00 00 00                           pointerPosition   dd 0
+[  24]    01F1: 24 24 24 24 24 24 24 24 24 24 24 24   path              db 256 dup('$')
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24                         
+[  25]    02F1: 00 00                                 tempVariable      dw 0
+[  26]    02F3: 00                                    isEndl            db 0
+[  27]    02F4: 00 00                                 spacePos          dw 0
+[  28]    02F6: 0A 00                                 base              dw 10
+[  29]    02F8: 00 00                                 iterations        dw 0
+[  30]    02FA: 00 00                                 stringNumber      dw 0
+[  31]    02FC: 01 00                                 parsingStep       dw 1
+[  32]    02FE: 0D 0A 24                              endl              db 13, 10, '$'
+[  33]    0301: 00 00                                 endlCounter       dw 0
+[  34]        :                                       
+[  35]    0303: 24 24 24 24 24 24 24 24 24 24 24 24   tempString        db 256 dup('$')
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24                         
+[  36]    0403: 00 00 00 00 00 00 00 00 00 00 00 00   fileName          db 256 dup(0)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00                         
+[  37]    0503: 00 00 00 00 00 00 00 00 00 00 00 00   dtaBuffer         db 128 dup(0)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00             
+[  38]    0583: 00 00 00 00 00 00 00 00 00 00 00 00   applicationName   db 256 dup(0)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00                         
+[  39]    0683: 24 24 24 24 24 24 24 24 24 24 24 24   part              db partSize dup('$')
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24                         
+[  40]        :                                       
+[  41]        :                                       ;Exec Parameter Block (EPB) for funcion 4Bh (load and run program)
+[  42]    0783: 00 00                                 env               dw 0
+[  43]    0785: 00 00                                 cmd_off           dw ?
+[  44]    0787: 00 00                                 cmd_seg           dw ?
+[  45]    0789: 00 00 00 00                           fcb1              dd ?        ;address of FCB structure (37 bytes for file description)
+[  46]    078D: 00 00 00 00                           fcb2              dd ?
+[  47]    0791: 0E 01                                 Len               dw $ - env  ;EPB length
+[  48]        :                                       
+[  49]    0793:                                       dsize=$-startMessage          ;size of data segment
+[  50]        :                                       .code
+[  51]        :                                       
+[  52]        :                                       ;printing string
+[  53]    07A0:                                       printString proc
+[  54]    07A0: 55                                    push    bp
+[  55]    07A1: 8B EC                                 mov     bp, sp
+[  56]    07A3: 60                                    pusha
+[  57]    07A4: 8B 56 04                              mov     dx, [ss:bp+4+0]
+[  58]    07A7: B8 00 09                              mov     ax, 0900h
+[  59]    07AA: CD 21                                 int     21h
+[  60]    07AC: BA FE 01                              mov     dx, offset endl
+[  61]    07AF: B8 00 09                              mov     ax, 0900h
+[  62]    07B2: CD 21                                 int     21h
+[  63]    07B4: 61                                    popa
+[  64]    07B5: 5D                                    pop     bp
+[  65]    07B6: C3                                    ret
+[  66]        :                                       endp
+[  67]        :                                       
+[  68]        :                                       ;output string
+[  69]    07B7:                                       puts proc
+[  70]    07B7: B4 09                                 mov     ah, 9
+[  71]    07B9: CD 21                                 int     21h
+[  72]    07BB: C3                                    ret
+[  73]        :                                       endp
+[  74]        :                                       
+[  75]        :                                       ;bad file name
+[  76]    07BC:                                       badFileNameCall proc
+[  77]    07BC: BA D8 00                              lea     dx, badFileName
+[  78]    07BF: E8 F5 FF                              call    puts
+[  79]    07C2: E8 00 00                              call    exit
+[  80]        :                                       endp
+[  81]        :                                       
+[  82]    07C5:                                       exit proc
+[  83]    07C5: B8 00 4C                              mov     ax, 4c00h
+[  84]    07C8: CD 21                                 int     21h
+[  85]        :                                       endp
+[  86]        :                                       
+[  87]        :                                       ;bad range
+[  88]    07CA:                                       badRange:
+[  89]    07CA: BA 5C 00                              lea     dx, negativeExit
+[  90]    07CD: E8 E7 FF                              call    puts
+[  91]    07D0: E8 F2 FF                              call    exit
+[  92]    07D3: C3                                    ret
+[  93]        :                                       
+[  94]        :                                       ;convert to int
+[  95]    07D4:                                       toInteger proc
+[  96]    07D4: 60                                    pusha
+[  97]    07D5: 33 FF                                 xor     di, di
+[  98]    07D7: BF F1 00                              lea     di, path
+[  99]    07DA: 33 DB                                 xor     bx, bx
+[ 100]    07DC: 33 C0                                 xor     ax, ax
+[ 101]    07DE: 33 C9                                 xor     cx, cx
+[ 102]    07E0: 33 D2                                 xor     dx, dx
+[ 103]    07E2: 8B 1E F4 01                           mov     bx, spacePos
+[ 104]        :                                       
+[ 105]    07E6:                                       skipSpacesInteger:
+[ 106]    07E6: 80 39 20                              cmp     [di + bx], byte ptr ' '
+[ 107]    07E9: 75 03                                 jne     unskippingInteger
+[ 108]    07EB: 43                                    inc     bx
+[ 109]    07EC: EB F8                                 jmp     skipSpacesInteger
+[ 110]        :                                       
+[ 111]    07EE:                                       unskippingInteger:
+[ 112]    07EE: 80 39 2D                              cmp     [di + bx], byte ptr '-'
+[ 113]    07F1: 75 02                                 jne     atoiLoop
+[ 114]    07F3: EB 21                                 jmp     atoiError
+[ 115]        :                                       
+[ 116]    07F5:                                       atoiLoop:
+[ 117]    07F5: 80 39 30                              cmp     [di + bx], byte ptr '0'
+[ 118]    07F8: 72 1C                                 jb      atoiError
+[ 119]    07FA: 80 39 39                              cmp     [di + bx], byte ptr '9'
+[ 120]    07FD: 77 17                                 ja      atoiError
+[ 121]    07FF: F7 26 F6 01                           mul     base            ;mul 10
+[ 122]    0803: 8A 11                                 mov     dl, [di + bx]
+[ 123]    0805: 70 0F                                 jo      atoiError
+[ 124]    0807: 2D 30 00                              sub     ax, '0'
+[ 125]    080A: 70 0A                                 jo      atoiError
+[ 126]    080C: 03 C2                                 add     ax, dx
+[ 127]    080E: 43                                    inc     bx
+[ 128]    080F: 80 39 20                              cmp     [di + bx], byte ptr ' '
+[ 129]    0812: 75 E1                                 jne     atoiLoop
+[ 130]    0814: EB 02                                 jmp     atoiEnd
+[ 131]        :                                       
+[ 132]    0816:                                       atoiError:
+[ 133]    0816: EB B2                                 jmp     badRange
+[ 134]        :                                       
+[ 135]    0818:                                       atoiEnd:
+[ 136]    0818: A3 F1 01                              mov     tempVariable, ax
+[ 137]    081B: 89 1E F4 01                           mov     spacePos, bx
+[ 138]    081F: FF 06 FC 01                           inc     parsingStep
+[ 139]    0823: 81 3E F1 01 FF 00                     cmp     tempVariable, 255
+[ 140]    0829: 7F 9F                                 jg      badRange
+[ 141]    082B: 83 3E F1 01 00                        cmp     tempVariable, 0
+[ 142]    0830: 74 98                                 je      badRange
+[ 143]    0832: 61                                    popa
+[ 144]    0833: C3                                    ret
+[ 145]        :                                       endp
+[ 146]        :                                       
+[ 147]        :                                       ;convert to string
+[ 148]    0834:                                       toString proc
+[ 149]    0834: 60                                    pusha
+[ 150]    0835: 33 FF                                 xor     di, di
+[ 151]    0837: BF 03 02                              lea     di, tempString
+[ 152]    083A: A1 F1 01                              mov     ax, tempVariable
+[ 153]    083D: 33 DB                                 xor     bx, bx
+[ 154]    083F: 8B DF                                 mov     bx, di
+[ 155]    0841: 33 C9                                 xor     cx, cx
+[ 156]    0843: B9 00 01                              mov     cx, 256
+[ 157]    0846:                                       setZeroString:
+[ 158]    0846: C6 05 24                              mov     [di], byte ptr '$'
+[ 159]    0849: E2 FB                                 loop    setZeroString
+[ 160]    084B: BF 03 02                              lea     di, tempString
+[ 161]    084E:                                       itoaLoop:
+[ 162]    084E: 33 D2                                 xor     dx, dx
+[ 163]    0850: F7 36 F6 01                           div     base
+[ 164]    0854: 80 C2 30                              add     dl, '0'
+[ 165]    0857: 88 15                                 mov     [di], dl
+[ 166]    0859: 47                                    inc     di
+[ 167]    085A: 3D 00 00                              cmp     ax, 0
+[ 168]    085D: 77 EF                                 ja      itoaLoop
+[ 169]    085F: 4F                                    dec     di
+[ 170]    0860: 33 F6                                 xor     si, si
+[ 171]    0862: 8B F3                                 mov     si, bx
+[ 172]    0864:                                       reverseMini:
+[ 173]    0864: 33 D2                                 xor     dx, dx
+[ 174]    0866: 33 C9                                 xor     cx, cx
+[ 175]    0868: 8A 14                                 mov     dl, byte ptr [si]
+[ 176]    086A: 8A 0D                                 mov     cl, byte ptr [di]
+[ 177]    086C: 88 0C                                 mov     [si], cl
+[ 178]    086E: 88 15                                 mov     [di], dl
+[ 179]    0870: 46                                    inc     si
+[ 180]    0871: 4F                                    dec     di
+[ 181]    0872: 3B F7                                 cmp     si, di
+[ 182]    0874: 74 EE                                 je      reverseMini
+[ 183]    0876: 61                                    popa
+[ 184]    0877: C3                                    ret
+[ 185]        :                                       endp
+[ 186]        :                                       
+[ 187]        :                                       ;app error
+[ 188]    0878:                                       applicationStartError:
+[ 189]    0878: BA 33 00                              lea     dx, applicationError
+[ 190]    087B: E8 39 FF                              call    puts
+[ 191]    087E: E8 44 FF                              call    exit
+[ 192]    0881: C3                                    ret
+[ 193]        :                                       
+[ 194]        :                                       ;memory allocating
+[ 195]    0882:                                       allocateMemory proc
+[ 196]    0882: 50                                    push    ax
+[ 197]    0883: 53                                    push    bx
+[ 198]    0884: BB B8 00                              mov     bx, ((csize/16)+1)+256/16+((dsize/16)+1)+256/16
+[ 199]    0887: B4 4A                                 mov     ah, 4Ah   ;change size of memory block
+[ 200]    0889: CD 21                                 int     21h
+[ 201]    088B: 72 02                                 jc      allocateMemoryError
+[ 202]    088D: EB 09                                 jmp     allocateMemoryEnd
+[ 203]    088F:                                       allocateMemoryError:
+[ 204]    088F: BA 72 00                              lea     dx, allocatingError
+[ 205]    0892: E8 22 FF                              call    puts
+[ 206]    0895: E8 2D FF                              call    exit
+[ 207]    0898:                                       allocateMemoryEnd:
+[ 208]    0898: 5B                                    pop     bx
+[ 209]    0899: 58                                    pop     ax
+[ 210]    089A: C3                                    ret
+[ 211]        :                                       endp
+[ 212]        :                                       
+[ 213]        :                                       ;get iterations
+[ 214]    089B:                                       getIterations proc
+[ 215]    089B: 60                                    pusha
+[ 216]    089C: 33 C0                                 xor     ax, ax
+[ 217]    089E: E8 33 FF                              call    toInteger
+[ 218]    08A1: A1 F1 01                              mov     ax, tempVariable
+[ 219]    08A4: A3 F8 01                              mov     iterations, ax
+[ 220]    08A7: 61                                    popa
+[ 221]    08A8: C3                                    ret
+[ 222]        :                                       endp
+[ 223]        :                                       
+[ 224]        :                                       ;load and run application
+[ 225]    08A9:                                       loadAndRun proc
+[ 226]    08A9: B8 00 4B                              mov     ax, 4B00h      ;load and execute
+[ 227]    08AC: BA 83 04                              lea     dx, applicationName
+[ 228]    08AF: BB 83 06                              lea     bx, env
+[ 229]    08B2: CD 21                                 int     21h
+[ 230]    08B4: 72 C2                                 jb      applicationStartError    ;if lower
+[ 231]    08B6: C3                                    ret
+[ 232]        :                                       endp
+[ 233]        :                                       
+[ 234]        :                                       ;file error call
+[ 235]    08B7:                                       fileErrorCall:
+[ 236]    08B7: BA C4 00                              lea     dx, fileError
+[ 237]    08BA: E8 FA FE                              call    puts
+[ 238]    08BD: E8 05 FF                              call    exit
+[ 239]    08C0: C3                                    ret
+[ 240]        :                                       
+[ 241]        :                                       ;get file name
+[ 242]    08C1:                                       getFilename proc
+[ 243]    08C1: 60                                    pusha
+[ 244]    08C2: BF F1 00                              lea     di, path
+[ 245]    08C5: 33 DB                                 xor     bx, bx
+[ 246]    08C7: 33 C0                                 xor     ax, ax
+[ 247]    08C9: 8B 1E F4 01                           mov     bx, spacePos
+[ 248]    08CD:                                       skipSpacesString:
+[ 249]    08CD: 80 39 20                              cmp     [di + bx], byte ptr ' '
+[ 250]    08D0: 75 03                                 jne     unskippingString
+[ 251]    08D2: 43                                    inc     bx
+[ 252]    08D3: EB F8                                 jmp     skipSpacesString
+[ 253]    08D5:                                       unskippingString:
+[ 254]    08D5: BE 03 03                              lea si, fileName
+[ 255]    08D8:                                       copyFilename:
+[ 256]    08D8: 33 C0                                 xor     ax, ax
+[ 257]    08DA: 8A 01                                 mov     al, [di + bx]
+[ 258]    08DC: 88 04                                 mov     [si], al
+[ 259]    08DE: 43                                    inc     bx
+[ 260]    08DF: 46                                    inc     si
+[ 261]    08E0: 80 39 24                              cmp     [di + bx], byte ptr '$'
+[ 262]    08E3: 75 F3                                 jne     copyFilename
+[ 263]    08E5: 89 1E F4 01                           mov     spacePos, bx
+[ 264]    08E9: 61                                    popa
+[ 265]    08EA: C3                                    ret
+[ 266]        :                                       endp
+[ 267]        :                                       
+[ 268]        :                                       ;get string number
+[ 269]    08EB:                                       getStringNumber proc
+[ 270]    08EB: 60                                    pusha
+[ 271]    08EC: 33 C0                                 xor     ax, ax
+[ 272]    08EE: E8 E3 FE                              call    toInteger
+[ 273]    08F1: A1 F1 01                              mov     ax, tempVariable
+[ 274]    08F4: A3 FA 01                              mov     stringNumber, ax
+[ 275]    08F7: 61                                    popa
+[ 276]    08F8: C3                                    ret
+[ 277]        :                                       endp
+[ 278]        :                                       
+[ 279]        :                                       ;get application name
+[ 280]    08F9:                                       getApplicationName proc
+[ 281]    08F9: 60                                    pusha
+[ 282]    08FA: 33 C0                                 xor     ax, ax
+[ 283]    08FC: BA 03 03                              mov     dx, offset fileName
+[ 284]    08FF: B4 3D                                 mov     ah, 3Dh        ;open file
+[ 285]    0901: B0 00                                 mov     al, 00h
+[ 286]    0903: CD 21                                 int     21h
+[ 287]    0905: A3 EB 00                              mov     descriptor, ax
+[ 288]    0908: 8B D8                                 mov     bx, ax
+[ 289]    090A: 73 02                                 jnc     readFilePart
+[ 290]    090C: EB A9                                 jmp     fileErrorCall;
+[ 291]    090E:                                       readFilePart:
+[ 292]    090E: B4 42                                 mov     ah, 42h     ;set pointer of file (lseek)
+[ 293]    0910: B9 00 00                              mov     cx, word ptr [offset pointerPosition]
+[ 294]    0913: BA 00 00                              mov     dx, word ptr [offset pointerPosition + 2]
+[ 295]    0916: B0 00                                 mov     al, 0
+[ 296]    0918: 8B 1E EB 00                           mov     bx, descriptor
+[ 297]    091C: CD 21                                 int     21h
+[ 298]    091E: B9 00 01                              mov     cx, partSize
+[ 299]    0921: BA 83 05                              lea     dx, part
+[ 300]    0924: B4 3F                                 mov     ah, 3Fh     ;read file with descriptor
+[ 301]    0926: 8B 1E EB 00                           mov     bx, descriptor
+[ 302]    092A: CD 21                                 int     21h
+[ 303]    092C: A3 E9 00                              mov     realPartSize, ax
+[ 304]    092F: E8 34 00                              call    searchApplicationName
+[ 305]    0932: E8 B4 00                              call    memset
+[ 306]    0935: 81 3E E9 00 00 01                     cmp     realPartSize, partSize
+[ 307]    093B: 72 1F                                 jb      closeFile
+[ 308]    093D: 8B 1E FA 01                           mov     bx, stringNumber
+[ 309]    0941: 39 1E 01 02                           cmp     endlCounter, bx
+[ 310]    0945: 74 15                                 je      closeFile
+[ 311]    0947: B9 00 00                              mov     cx, word ptr [offset pointerPosition]
+[ 312]    094A: BA 00 00                              mov     dx, word ptr [offset pointerPosition + 2]
+[ 313]    094D: 03 D0                                 add     dx, ax
+[ 314]    094F: 83 D1 00                              adc     cx, 0
+[ 315]    0952: 89 0E 00 00                           mov     word ptr [offset pointerPosition], cx
+[ 316]    0956: 89 16 00 00                           mov     word ptr [offset pointerPosition + 2], dx
+[ 317]    095A: EB B2                                 jmp     readFilePart
+[ 318]    095C:                                       closeFile:
+[ 319]    095C:                                       exitFromFile:
+[ 320]    095C: B4 3E                                 mov     ah, 3Eh        ;close file
+[ 321]    095E: 8B 1E EB 00                           mov     bx, descriptor
+[ 322]    0962: CD 21                                 int     21h
+[ 323]    0964: 61                                    popa
+[ 324]    0965: C3                                    ret
+[ 325]        :                                       endp
+[ 326]        :                                       
+[ 327]        :                                       ;search application name
+[ 328]    0966:                                       searchApplicationName proc
+[ 329]    0966: 60                                    pusha
+[ 330]    0967: 33 F6                                 xor     si, si
+[ 331]    0969:                                       partParsing:
+[ 332]    0969: E8 53 00                              call    checkEndl
+[ 333]    096C: A1 FA 01                              mov     ax, stringNumber
+[ 334]    096F: 39 06 01 02                           cmp     endlCounter, ax
+[ 335]    0973: 74 1B                                 je      parseApplicationName
+[ 336]    0975: 80 3E F3 01 00                        cmp     isEndl, 0
+[ 337]    097A: 74 06                                 je      increment
+[ 338]    097C: FF 06 01 02                           inc     endlCounter
+[ 339]    0980: EB 01                                 jmp     partParsingCycle
+[ 340]    0982:                                       increment:
+[ 341]    0982: 46                                    inc     si
+[ 342]    0983:                                       partParsingCycle:
+[ 343]    0983: C6 06 F3 01 00                        mov     isEndl, 0
+[ 344]    0988: 3B 36 E9 00                           cmp     si, realPartSize
+[ 345]    098C: 72 DB                                 jb      partParsing        ;if lower
+[ 346]    098E: 61                                    popa
+[ 347]    098F: C3                                    ret
+[ 348]    0990:                                       parseApplicationName:
+[ 349]    0990: 80 3E F3 01 01                        cmp     isEndl, 1
+[ 350]    0995: 75 03                                 jne     parseStart
+[ 351]    0997: E8 22 FE                              call    badFileNameCall
+[ 352]    099A:                                       parseStart:
+[ 353]    099A: BF 83 04                              lea     di, applicationName
+[ 354]    099D:                                       copyApplicationName:
+[ 355]    099D: 33 C0                                 xor     ax, ax
+[ 356]    099F: 8A 84 83 05                           mov     al, [part + si]
+[ 357]    09A3: 88 05                                 mov     [di], al
+[ 358]    09A5: 46                                    inc     si
+[ 359]    09A6: 47                                    inc     di
+[ 360]    09A7: 80 BC 83 05 0D                        cmp     [part + si], 0dh
+[ 361]    09AC: 74 0F                                 je      exitFromParsing
+[ 362]    09AE: 80 BC 83 05 0A                        cmp     [part + si], 0ah
+[ 363]    09B3: 74 08                                 je      exitFromParsing
+[ 364]    09B5: 3B 36 E9 00                           cmp     si, realPartSize
+[ 365]    09B9: 74 02                                 je      exitFromParsing
+[ 366]    09BB: EB E0                                 jmp     copyApplicationName
+[ 367]    09BD:                                       exitFromParsing:
+[ 368]    09BD: 61                                    popa
+[ 369]    09BE: C3                                    ret
+[ 370]        :                                       endp
+[ 371]        :                                       
+[ 372]        :                                       ;check endl
+[ 373]    09BF:                                       checkEndl proc
+[ 374]    09BF: 8A 84 83 05                           mov     al, [part + si]
+[ 375]    09C3: 32 E4                                 xor     ah,ah
+[ 376]    09C5: 3C 0D                                 cmp     al, 0dh
+[ 377]    09C7: 74 09                                 je      checkNextSymbol
+[ 378]    09C9: 3C 0A                                 cmp     al, 0ah
+[ 379]    09CB: 75 04                                 jne     exitFromEndlCheck
+[ 380]    09CD: 46                                    inc     si
+[ 381]    09CE: E8 12 00                              call    setIsEndl
+[ 382]    09D1:                                       exitFromEndlCheck:
+[ 383]    09D1: C3                                    ret
+[ 384]        :                                       endp
+[ 385]        :                                       
+[ 386]        :                                       ;check next symbol
+[ 387]    09D2:                                       checkNextSymbol:
+[ 388]    09D2: E8 0E 00                              call    setIsEndl
+[ 389]    09D5: 8A 9C 84 05                           mov     bl, [part + si + 1]
+[ 390]    09D9: 32 FF                                 xor     bh,bh
+[ 391]    09DB: 80 FB 0A                              cmp     bl, 0ah
+[ 392]    09DE: 75 01                                 jne     exitFromCheck
+[ 393]    09E0: 46                                    inc     si
+[ 394]    09E1:                                       exitFromCheck:
+[ 395]    09E1: 46                                    inc     si
+[ 396]    09E2: C3                                    ret
+[ 397]        :                                       
+[ 398]        :                                       ;set is endl (flag)
+[ 399]    09E3:                                       setIsEndl proc
+[ 400]    09E3: C6 06 F3 01 01                        mov     isEndl, 1
+[ 401]    09E8: C3                                    ret
+[ 402]        :                                       endp
+[ 403]        :                                       
+[ 404]        :                                       ;memset
+[ 405]    09E9:                                       memset proc
+[ 406]    09E9: 60                                    pusha
+[ 407]    09EA: 33 F6                                 xor     si, si
+[ 408]    09EC: BE 83 05                              lea     si, part
+[ 409]    09EF: B9 00 01                              mov     cx, partSize
+[ 410]    09F2:                                       setEndCycle:
+[ 411]    09F2: C6 04 24                              mov     byte ptr [si], '$'
+[ 412]    09F5: 46                                    inc     si
+[ 413]    09F6: E2 FA                                 loop    setEndCycle
+[ 414]    09F8: 61                                    popa
+[ 415]    09F9: C3                                    ret
+[ 416]        :                                       endp
+[ 417]        :                                       
+[ 418]        :                                       ;bad arguments call
+[ 419]    09FA:                                       badArgumentsCall:
+[ 420]    09FA: BA AD 00                              lea     dx, badArguments
+[ 421]    09FD: E8 B7 FD                              call    puts
+[ 422]    0A00: E8 C2 FD                              call    exit
+[ 423]    0A03: C3                                    ret
+[ 424]        :                                       
+[ 425]        :                                       ;start
+[ 426]    0A04:                                       start proc
+[ 427]    0A04: E8 7B FE                              call    allocateMemory
+[ 428]    0A07: B8 10 00                              mov     ax, @data        ;move data segment address in DS
+[ 429]    0A0A: 8E D8                                 mov     ds, ax
+[ 430]    0A0C: 26 8A 1E 80 00                        mov     bl, es:[80h]     ;length of com line
+[ 431]    0A11: 81 C3 80 00                           add     bx, 80h          ;args line last (call kernel)
+[ 432]    0A15: BE 82 00                              mov     si, 82h          ;args line start
+[ 433]    0A18: BF F1 00                              mov     di, offset path
+[ 434]    0A1B: 3B F3                                 cmp     si, bx
+[ 435]    0A1D: 77 DB                                 ja      badArgumentsCall ;if higher
+[ 436]    0A1F:                                       getPath:
+[ 437]    0A1F: 26 8A 04                              mov     al, es:[si]
+[ 438]    0A22: 88 05                                 mov     [di], al
+[ 439]    0A24: 26 80 3C 20                           cmp     BYTE PTR es:[si], byte ptr ' '
+[ 440]    0A28: 75 23                                 jne     getNextCharacter
+[ 441]    0A2A: 83 3E E7 00 00                        cmp     wasPreviousLetter, 0
+[ 442]    0A2F: 74 22                                 je      skipCurrentSymbol
+[ 443]    0A31: C7 06 E7 00 00 00                     mov     wasPreviousLetter, 0
+[ 444]    0A37: 83 3E FC 01 01                        cmp     parsingStep, 1
+[ 445]    0A3C: 75 05                                 jne     stepTwo
+[ 446]    0A3E: E8 5A FE                              call    getIterations
+[ 447]    0A41: EB 10                                 jmp     skipCurrentSymbol
+[ 448]    0A43:                                       stepTwo:
+[ 449]    0A43: E8 A5 FE                              call    getStringNumber
+[ 450]    0A46: EB 0B                                 jmp     skipCurrentSymbol
+[ 451]    0A48:                                       stepThree:
+[ 452]    0A48: E8 76 FE                              call    getFilename
+[ 453]    0A4B: EB 0E                                 jmp     main
+[ 454]    0A4D:                                       getNextCharacter:
+[ 455]    0A4D: C7 06 E7 00 01 00                     mov     wasPreviousLetter, 1
+[ 456]    0A53:                                       skipCurrentSymbol:
+[ 457]    0A53: 47                                    inc     di
+[ 458]    0A54: 46                                    inc     si
+[ 459]    0A55: 3B F3                                 cmp     si, bx
+[ 460]    0A57: 7F EF                                 jg      stepThree    ;if bigger
+[ 461]    0A59: 76 C4                                 jbe getPath      ;if lower or equal
+[ 462]        :                                       
+[ 463]    0A5B:                                       main:
+[ 464]    0A5B: BA 00 00                              lea     dx, startMessage
+[ 465]    0A5E: E8 56 FD                              call    puts
+[ 466]    0A61: B8 F1 00                              lea     ax, path
+[ 467]    0A64: 50                                    push    ax
+[ 468]    0A65: E8 38 FD                              call    printString
+[ 469]    0A68: 58                                    pop     ax
+[ 470]    0A69: FF 0E FA 01                           dec     stringNumber
+[ 471]    0A6D: E8 89 FE                              call    getApplicationName
+[ 472]    0A70: 33 C9                                 xor cx, cx
+[ 473]    0A72: 8B 0E F8 01                           mov cx, iterations
+[ 474]    0A76:                                       startApps:
+[ 475]    0A76: E8 30 FE                              call    loadAndRun
+[ 476]    0A79: E2 FB                                 loop    startApps
+[ 477]    0A7B: E8 47 FD                              call exit
+[ 478]        :                                       endp
+[ 479]        :                                       
+[ 480]    0A7E:                                       csize = $ - printString
+[ 481]        :                                       
+[ 482]        :                                       end start
+[ 483]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: 7E      -   bytes on last page (l.byte)
+0003: 00      -   bytes on last page (h.byte)
+0004: 07      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 01      -   SP - stack pointer (h.byte)
+0012: 96      -   check sum (l.byte)
+0013: 48      -   check sum (h.byte)
+0014: 64      -   IP - instruction pointer (l.byte)
+0015: 02      -   IP - instruction pointer (h.byte)
+0016: 7A      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 68      -   relocation table - offset inside segment (l.byte)
+001F: 02      -   relocation table - offset inside segment (h.byte)
+0020: 7A      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================

@@ -1,0 +1,7 @@
+D:\Uni\ISP\L1\253503_Yarmak_Lab5\253503_Yarmak_Lab5\bin\Debug\253503_Yarmak_Lab5.exe.config
+D:\Uni\ISP\L1\253503_Yarmak_Lab5\253503_Yarmak_Lab5\bin\Debug\253503_Yarmak_Lab5.exe
+D:\Uni\ISP\L1\253503_Yarmak_Lab5\253503_Yarmak_Lab5\bin\Debug\253503_Yarmak_Lab5.pdb
+D:\Uni\ISP\L1\253503_Yarmak_Lab5\253503_Yarmak_Lab5\obj\Debug\253503_Yarmak_Lab5.csproj.AssemblyReference.cache
+D:\Uni\ISP\L1\253503_Yarmak_Lab5\253503_Yarmak_Lab5\obj\Debug\253503_Yarmak_Lab5.csproj.CoreCompileInputs.cache
+D:\Uni\ISP\L1\253503_Yarmak_Lab5\253503_Yarmak_Lab5\obj\Debug\253503_Yarmak_Lab5.exe
+D:\Uni\ISP\L1\253503_Yarmak_Lab5\253503_Yarmak_Lab5\obj\Debug\253503_Yarmak_Lab5.pdb

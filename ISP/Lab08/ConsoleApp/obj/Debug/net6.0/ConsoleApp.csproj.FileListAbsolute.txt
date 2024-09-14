@@ -1,0 +1,36 @@
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\bin\Debug\net6.0\ConsoleApp.exe
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\bin\Debug\net6.0\ConsoleApp.deps.json
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\bin\Debug\net6.0\ConsoleApp.runtimeconfig.json
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\bin\Debug\net6.0\ConsoleApp.dll
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\bin\Debug\net6.0\ConsoleApp.pdb
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\bin\Debug\net6.0\ClassLibrary.dll
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\bin\Debug\net6.0\ClassLibrary.pdb
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.csproj.AssemblyReference.cache
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.AssemblyInfoInputs.cache
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.AssemblyInfo.cs
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.csproj.CoreCompileInputs.cache
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.csproj.CopyComplete
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.dll
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\obj\Debug\net6.0\refint\ConsoleApp.dll
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.pdb
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.genruntimeconfig.cache
+C:\Users\veron\Downloads\Telegram Desktop\3sem\3sem\IiSP-CSharp\Lab08\ConsoleApp\obj\Debug\net6.0\ref\ConsoleApp.dll
+D:\Uni\ISP\Lab08\ConsoleApp\bin\Debug\net6.0\ConsoleApp.exe
+D:\Uni\ISP\Lab08\ConsoleApp\bin\Debug\net6.0\ConsoleApp.deps.json
+D:\Uni\ISP\Lab08\ConsoleApp\bin\Debug\net6.0\ConsoleApp.runtimeconfig.json
+D:\Uni\ISP\Lab08\ConsoleApp\bin\Debug\net6.0\ConsoleApp.dll
+D:\Uni\ISP\Lab08\ConsoleApp\bin\Debug\net6.0\ConsoleApp.pdb
+D:\Uni\ISP\Lab08\ConsoleApp\bin\Debug\net6.0\ClassLibrary.dll
+D:\Uni\ISP\Lab08\ConsoleApp\bin\Debug\net6.0\ClassLibrary.pdb
+D:\Uni\ISP\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.csproj.AssemblyReference.cache
+D:\Uni\ISP\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\ISP\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.AssemblyInfoInputs.cache
+D:\Uni\ISP\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.AssemblyInfo.cs
+D:\Uni\ISP\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.csproj.CoreCompileInputs.cache
+D:\Uni\ISP\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.csproj.CopyComplete
+D:\Uni\ISP\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.dll
+D:\Uni\ISP\Lab08\ConsoleApp\obj\Debug\net6.0\refint\ConsoleApp.dll
+D:\Uni\ISP\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.pdb
+D:\Uni\ISP\Lab08\ConsoleApp\obj\Debug\net6.0\ConsoleApp.genruntimeconfig.cache
+D:\Uni\ISP\Lab08\ConsoleApp\obj\Debug\net6.0\ref\ConsoleApp.dll

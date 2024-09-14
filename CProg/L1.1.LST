@@ -1,0 +1,11 @@
+  ADDR B1 B2 B3 B4 D:\Uni\CProg\L1.1.asm                            PAGE       1
+
+                    ORG $8000
+  8000 CE 82 00     LDX #$8200
+  8003 86 55        LDAA #$55
+  8005 A7 00        STAA 0,X
+  8007 A7 01        STAA 1,X
+  8009 A7 02        STAA 2,X
+  800B A7 03        STAA 3,X
+  800D A7 04        STAA 4,X
+  800F A7 05        STAA 5,X

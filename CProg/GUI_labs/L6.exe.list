@@ -1,0 +1,800 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+L6.exe -- emu8086 assembler version: 4.05  
+ 
+[ 12.12.2023  --  14:44:36 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       ;parameteres for this program must be entered in command line
+[   2]        :                                       ;FILE_PATH space WORLD space WORLD
+[   3]        :                                       ;
+[   4]        :                                       
+[   5]        :                                       .MODEL small
+[   6]        :                                       .DATA
+[   7]        :                                       
+[   8]    0000: 14                                    strToFind db 20
+[   9]        :                                       ;strToFindLen db 0
+[  10]    0001: 00 00 00 00 00 00 00 00 00 00 00 00   strfind2 db 20 dup (0)
+                00 00 00 00 00 00 00 00             
+[  11]        :                                       
+[  12]    0015: 14                                    strToReplace db 20
+[  13]        :                                       ;strToReplaceLen db 0
+[  14]    0016: 00 00 00 00 00 00 00 00 00 00 00 00   strrepl2 db 20 dup (0)
+                00 00 00 00 00 00 00 00             
+[  15]        :                                       
+[  16]    002A: C8                                    strWithText db 200
+[  17]    002B: 00                                    strLen2 db 0
+[  18]    002C: 00 00 00 00 00 00 00 00 00 00 00 00   strtext2 db 200 dup(0)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00             
+[  19]        :                                       
+[  20]    00F4: 00 00 00 00 00 00 00 00 00 00 00 00   outtext db 200 dup (0)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00             
+[  21]        :                                       
+[  22]    01BC: 00                                    strTextLen db 0
+[  23]    01BD: 00                                    strToFindLen db 0
+[  24]    01BE: 00                                    strToReplaceLen db 0
+[  25]        :                                       
+[  26]    01BF: 00 00                                 sfindL dw 0
+[  27]    01C1: 00 00                                 sreplL dw 0
+[  28]        :                                       
+[  29]    01C3: 49 6E 70 75 74 20 77 6F 72 64 20 74   findTextMsqStr db "Input word to find: ",0Dh, 0Ah, 24h
+                6F 20 66 69 6E 64 3A 20 0D 0A 24    
+[  30]    01DA: 49 6E 70 75 74 20 77 6F 72 64 20 74   replace_text db "Input word to replace: ",0Dh, 0Ah, 24h
+                6F 20 72 65 70 6C 61 63 65 3A 20 0D 
+                0A 24                               
+[  31]    01F4: 49 6E 70 75 74 20 74 65 78 74 3A 20   text db "Input text: ",0Dh, 0Ah, 24h
+                0D 0A 24                            
+[  32]        :                                       
+[  33]    0203: 0D 0A 24                              EntryMsqStr db 13,10,"$"
+[  34]        :                                       
+[  35]    0206: 63 3A 5C 66 69 6C 65 2E 74 78 74 00   path	DB    "c:\file.txt", 0
+                                                    
+[  36]        :                                       ;buf	DB    29 dup(0)
+[  37]        :                                       
+[  38]    0212: 32 00 24 24 24 24 24 24 24 24 24 24   word db 50, 0, 50 dup('$'), '$' ;variable for a word
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24                      
+[  39]    0247: 02 00 24 24 24                        buf db 2, 0, 2 dup('$'), '$' ;for a symbol from file
+[  40]        :                                       
+[  41]    024C: 45 6E 74 65 72 20 74 68 65 20 77 6F   msg_invite_to_input_word db 'Enter the word that must be searched',0Dh,0Ah,'$'
+                72 64 20 74 68 61 74 20 6D 75 73 74 
+                20 62 65 20 73 65 61 72 63 68 65 64 
+                0D 0A 24                            
+[  42]    0273: 54 68 65 20 61 6D 6F 75 6E 74 20 6F   msg_amount_of_strings db 'The amount of strings containing this word:',0Dh,0Ah,'$'
+                66 20 73 74 72 69 6E 67 73 20 63 6F 
+                6E 74 61 69 6E 69 6E 67 20 74 68 69 
+                73 20 77 6F 72 64 3A 0D 0A 24       
+[  43]    02A1: 43 6F 6D 6D 61 6E 64 20 6C 69 6E 65   msg_bad_args db 'Command line parse error', 0Dh, 0Ah, '$'
+                20 70 61 72 73 65 20 65 72 72 6F 72 
+                0D 0A 24                            
+[  44]    02BC: 0D 0A 45 72 72 6F 72 0D 0A 24         msg_error db 0Dh, 0Ah, 'Error', 0Dh, 0Ah, '$'
+[  45]    02C6: 0D 0A 45 72 72 6F 72 20 77 69 74 68   msg_error_of_cmd db 0Dh, 0Ah, 'Error with input cmd parametrs', 0Dh, 0Ah, '$'
+                20 69 6E 70 75 74 20 63 6D 64 20 70 
+                61 72 61 6D 65 74 72 73 0D 0A 24    
+[  46]    02E9: 57 6F 72 64 20 69 73 20 6C 6F 6E 67   msg_warning_wordlength db 'Word is longer than 50 symbols',0Dh, 0Ah, '$'
+                65 72 20 74 68 61 6E 20 35 30 20 73 
+                79 6D 62 6F 6C 73 0D 0A 24          
+[  47]    030A: 57 6F 72 64 20 68 61 73 20 6E 6F 74   msg_no_word_error db 'Word has not been found', 0Dh, 0Ah, '$'
+                20 62 65 65 6E 20 66 6F 75 6E 64 0D 
+                0A 24                               
+[  48]        :                                       
+[  49]        :                                       cmdline_input_max_length equ 127 ;max length in command line
+[  50]    0324: 00                                    cmdline_input_length db ? ;actual length from command line
+[  51]    0325: 24 24 24 24 24 24 24 24 24 24 24 24   cmdline_text db cmdline_input_max_length dup ('$') ;variable for text from command line
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24                
+[  52]    03A4: 24 24 24 24 24 24 24 24 24 24 24 24   cmd_file_path db cmdline_input_max_length dup('$') ;variable for path
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24                
+[  53]    0423: 24 24 24 24 24 24 24 24 24 24 24 24   path_to_file db cmdline_input_max_length dup ('$') ;ready path
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24                
+[  54]    04A2: 00                                    path_to_file_length db ?
+[  55]        :                                       
+[  56]    04A3: 00 00                                 flag dw 0 ;flag to check if it's the beginning of the file
+[  57]    04A5: 00 00                                 fend dw 0 ;flag to check if it's the end of the file
+[  58]        :                                       
+[  59]        :                                       .STACK 100h
+[  60]        :                                       
+[  61]        :                                       .CODE
+[  62]        :                                       ;macros
+[  63]        :                                       
+[  64]        :                                       ;to avoid empty input in command line
+[  65]        :                                       check_if_empty macro str,is_zero
+[  66]        :                                       push si
+[  67]        :                                       mov si, offset str
+[  68]        :                                       call strlen ;use the procedure to count the length
+[  69]        :                                       pop si
+[  70]        :                                       cmp ax, 0
+[  71]        :                                       je is_zero  ;if the length is 0, it's an error
+[  72]        :                                       endm
+[  73]        :                                       
+[  74]        :                                       ;macro to print messages
+[  75]        :                                       print macro out_str
+[  76]        :                                       push ax
+[  77]        :                                       push dx
+[  78]        :                                       mov dx,offset out_str
+[  79]        :                                       mov ah,9
+[  80]        :                                       int 21h
+[  81]        :                                       pop dx
+[  82]        :                                       pop ax
+[  83]        :                                       endm
+[  84]        :                                       
+[  85]        :                                       
+[  86]        :                                       ;macro to input string
+[  87]        :                                       input_string macro str
+[  88]        :                                       push bx
+[  89]        :                                       push cx
+[  90]        :                                       push dx
+[  91]        :                                       
+[  92]        :                                       again:     ; check empty word input
+[  93]        :                                       mov ah, 0Ah ;function to input a string (not a symbol)
+[  94]        :                                       mov dx,offset str
+[  95]        :                                       int 21h
+[  96]        :                                       
+[  97]        :                                       mov ax,0
+[  98]        :                                       mov cx,0
+[  99]        :                                       mov cl, [word + 1] ;in [word+1] position the length is stored, we need to check if it's not 0
+[ 100]        :                                       cmp cl, 0 ; if str is empty restart input
+[ 101]        :                                       je again
+[ 102]        :                                       
+[ 103]        :                                       pop dx
+[ 104]        :                                       pop cx
+[ 105]        :                                       pop bx
+[ 106]        :                                       endm
+[ 107]        :                                       
+[ 108]        :                                       ;macro to output a number (we need to transform the number into a string)
+[ 109]        :                                       output_number macro
+[ 110]        :                                       local division
+[ 111]        :                                       local transfrom_and_output
+[ 112]        :                                       local exit
+[ 113]        :                                       ;the number of lines is stored in ax
+[ 114]        :                                       push ax
+[ 115]        :                                       push cx
+[ 116]        :                                       push -1; break condition
+[ 117]        :                                       mov cx, 10
+[ 118]        :                                       division:
+[ 119]        :                                       mov dx,0
+[ 120]        :                                       mov ah,0
+[ 121]        :                                       div cl; al - entire part, ah - remainder
+[ 122]        :                                       mov dl, ah ;save remainder to stack
+[ 123]        :                                       push dx ;save rests in stack
+[ 124]        :                                       cmp al, 0 ;continue until the entire part is 0
+[ 125]        :                                       jne division
+[ 126]        :                                       
+[ 127]        :                                       mov ah, 2 ;interrupt func to output a symbol
+[ 128]        :                                       
+[ 129]        :                                       transfrom_and_output: ;transformation to ascii
+[ 130]        :                                       pop dx ;remove one rest
+[ 131]        :                                       cmp dx, -1; if -1 break (it was our break condition)
+[ 132]        :                                       je exit ;if so, finish the process
+[ 133]        :                                       add dl, '0'; ascii code transformation
+[ 134]        :                                       int 21h ;output that symbol
+[ 135]        :                                       jmp transfrom_and_output
+[ 136]        :                                       exit:
+[ 137]        :                                       mov dl, ' '
+[ 138]        :                                       int 21h
+[ 139]        :                                       pop cx
+[ 140]        :                                       pop ax
+[ 141]        :                                       endm
+[ 142]        :                                       
+[ 143]        :                                       
+[ 144]        :                                       ;macros to work with a file
+[ 145]        :                                       
+[ 146]        :                                       ;macro to open a file
+[ 147]        :                                       fopen macro
+[ 148]        :                                       mov dx, offset path_to_file
+[ 149]        :                                       mov ah, 3Dh ;open existing file with the path in dx
+[ 150]        :                                       mov al, 00h ;access mode is set to 0 because we need only reading
+[ 151]        :                                       int 21h ;open the file
+[ 152]        :                                       jc exit ;if c flag is set, there's a problem
+[ 153]        :                                       mov bx, ax ;store file identificator from ax in bx, it will be used later
+[ 154]        :                                       endm
+[ 155]        :                                       
+[ 156]        :                                       
+[ 157]        :                                       ;macro to close a file
+[ 158]        :                                       fclose macro
+[ 159]        :                                       mov ah, 3Eh; close file
+[ 160]        :                                       int 21h
+[ 161]        :                                       endm
+[ 162]        :                                       
+[ 163]        :                                       
+[ 164]        :                                       ;macro to read a symbol from file
+[ 165]        :                                       fread macro
+[ 166]        :                                       local continue
+[ 167]        :                                       push ax
+[ 168]        :                                       push cx
+[ 169]        :                                       push dx
+[ 170]        :                                       
+[ 171]        :                                       mov cx, 1 ;set the number of bytes we want to read (one because one symbol)
+[ 172]        :                                       mov dx, offset buf ;buffer to store readen data
+[ 173]        :                                       
+[ 174]        :                                       mov ah, 3Fh; read one byte from file
+[ 175]        :                                       int 21h
+[ 176]        :                                       jc exit ;if c flag is set -> there's a problem
+[ 177]        :                                       ;the number of readen bytes is now in ax
+[ 178]        :                                       mov cx, ax ;save the amount of readen bytes to cx
+[ 179]        :                                       test cx, cx ; check if it's end of file (logical and)
+[ 180]        :                                       ;if cx is 0, we have reached the end of file
+[ 181]        :                                       jnz continue;if not, it's not the end and we don't set the flag
+[ 182]        :                                       mov fend,1 ;we set the flag in case of the file's end
+[ 183]        :                                       ;fclose
+[ 184]        :                                       ;jmp good_exit ;go to the finish
+[ 185]        :                                       
+[ 186]        :                                       continue:
+[ 187]        :                                       pop dx
+[ 188]        :                                       pop cx
+[ 189]        :                                       pop ax
+[ 190]        :                                       endm
+[ 191]        :                                       
+[ 192]        :                                       ;macro to move the file pointer on one position to left
+[ 193]        :                                       fptr_back macro
+[ 194]        :                                       push dx
+[ 195]        :                                       mov ah,42h ;corresponding interrupt
+[ 196]        :                                       mov bx,5 ;file's identificator
+[ 197]        :                                       mov al,1 ;move ptr relatively to current position
+[ 198]        :                                       mov cx,-1 ;the distance in CX:DX
+[ 199]        :                                       mov dx,-2
+[ 200]        :                                       int 21h
+[ 201]        :                                       pop dx
+[ 202]        :                                       endm
+[ 203]        :                                       
+[ 204]        :                                       ;macro to move the file pointer on one position to right
+[ 205]        :                                       fptr_forward macro
+[ 206]        :                                       push dx
+[ 207]        :                                       mov ah,42h
+[ 208]        :                                       mov al,1
+[ 209]        :                                       mov dx,0
+[ 210]        :                                       mov cx,0
+[ 211]        :                                       int 21h ;file pointer
+[ 212]        :                                       pop dx
+[ 213]        :                                       endm
+[ 214]        :                                       
+[ 215]        :                                       ;procedures
+[ 216]        :                                       
+[ 217]        :                                       ;procedure that checks that the path is correct
+[ 218]    05B0:                                       parse_cmdline_text proc
+[ 219]    05B0: 53                                    push bx
+[ 220]    05B1: 51                                    push cx
+[ 221]    05B2: 52                                    push dx
+[ 222]        :                                       
+[ 223]    05B3: 8A 0E 24 03                           mov cl, cmdline_input_length ;the length of cmdline text is in cl now, it will be used for a loop
+[ 224]    05B7: B5 00                                 mov ch,0
+[ 225]        :                                       
+[ 226]    05B9: BE A4 03                              mov si, offset cmd_file_path; cmdline text offset to source
+[ 227]    05BC: BF 23 04                              mov di, offset path_to_file ; parsing path offset to data
+[ 228]    05BF: BB 00 00                              mov bx, 0000;
+[ 229]    05C2: E8 0D 00                              call to_asciiz ;transmit it to path
+[ 230]        :                                       
+[ 231]    05C5:                                       good_cmd_args:
+[ 232]    05C5: B8 00 00                              mov ax, 0 ;save 0 to ax if everything is okay
+[ 233]    05C8: FE CB                                 dec bl
+[ 234]    05CA: 88 1E A2 04                           mov path_to_file_length, bl ; save length of path
+[ 235]        :                                       
+[ 236]    05CE:                                       end_parse_cmd_text:
+[ 237]    05CE: 5B                                    pop bx
+[ 238]    05CF: 59                                    pop cx
+[ 239]    05D0: 5B                                    pop bx
+[ 240]    05D1: C3                                    ret
+[ 241]        :                                       parse_cmdline_text endp
+[ 242]        :                                       
+[ 243]        :                                       
+[ 244]        :                                       ;procedure to transmit text from cmdline to variable path
+[ 245]    05D2:                                       to_asciiz proc
+[ 246]    05D2: 50                                    push ax
+[ 247]    05D3: 51                                    push cx
+[ 248]    05D4: 57                                    push di
+[ 249]        :                                       
+[ 250]    05D5:                                       parse_to_asciiz:
+[ 251]    05D5: FE C3                                 inc bl
+[ 252]    05D7: 3E 8A 04                              mov al, ds:[si] ;save to al a symbol from data segment starting with cmdline_text position
+[ 253]        :                                       ;check if it's a delimiter
+[ 254]    05DA: 3C 20                                 cmp al, ' ' ;space
+[ 255]    05DC: 74 1B                                 je is_delimiter
+[ 256]    05DE: 3C 0D                                 cmp al, 0Dh ;cret
+[ 257]    05E0: 74 17                                 je is_delimiter
+[ 258]    05E2: 3C 09                                 cmp al, 09h ;tabulation
+[ 259]    05E4: 74 13                                 je is_delimiter
+[ 260]    05E6: 3C 0A                                 cmp al, 0Ah ;new line
+[ 261]    05E8: 74 0F                                 je is_delimiter
+[ 262]    05EA: 3C 00                                 cmp al, 00h ;nothing
+[ 263]    05EC: 74 0B                                 je is_delimiter
+[ 264]    05EE: 3C 24                                 cmp al, '$' ;end
+[ 265]    05F0: 74 07                                 je is_delimiter
+[ 266]        :                                       
+[ 267]    05F2: 26 88 05                              mov es:[di], al; write symbol to additional data segment, where path variable is situated
+[ 268]    05F5: 47                                    inc di ;increment indexes and restart the process
+[ 269]    05F6: 46                                    inc si
+[ 270]    05F7: E2 DC                                 loop parse_to_asciiz
+[ 271]        :                                       
+[ 272]    05F9:                                       is_delimiter: ;it's the end of the parse
+[ 273]    05F9: B0 00                                 mov al, 00h
+[ 274]    05FB: 26 88 05                              mov es:[di], al
+[ 275]    05FE: B0 24                                 mov al, '$'
+[ 276]    0600: 47                                    inc di
+[ 277]    0601: 26 88 05                              mov es:[di], al
+[ 278]    0604: 46                                    inc si
+[ 279]        :                                       
+[ 280]    0605: 5F                                    pop di
+[ 281]    0606: 59                                    pop cx
+[ 282]    0607: 58                                    pop ax
+[ 283]    0608: C3                                    ret
+[ 284]        :                                       to_asciiz endp
+[ 285]        :                                       
+[ 286]        :                                       
+[ 287]        :                                       ;procedure to determine the length of the line
+[ 288]    0609:                                       strlen proc
+[ 289]    0609: 53                                    push bx
+[ 290]    060A: 56                                    push si
+[ 291]    060B: B8 00 00                              mov ax,0 ;length will be stored in ax
+[ 292]    060E:                                       count_strlen:
+[ 293]    060E: 3E 8A 1C                              mov bl, ds:[si] ;pull symbols from the cmdline text until it's null
+[ 294]    0611: 80 FB 00                              cmp bl, 00h
+[ 295]    0614: 74 04                                 je end_strlen
+[ 296]    0616: 46                                    inc si
+[ 297]    0617: 40                                    inc ax ;increment counter
+[ 298]    0618: EB F4                                 jmp count_strlen
+[ 299]    061A:                                       end_strlen:
+[ 300]    061A: 5E                                    pop si
+[ 301]    061B: 5B                                    pop bx
+[ 302]    061C: C3                                    ret
+[ 303]        :                                       strlen endp
+[ 304]        :                                       
+[ 305]        :                                       ;Here we start looking for lines containing the word
+[ 306]    061D:                                       count_rows:
+[ 307]    061D: BA 00 00                              mov dx,0 ;start value is set to 0
+[ 308]    0620: B4 00                                 mov ah, 0
+[ 309]    0622: A0 A2 04                              mov al, [path_to_file_length] ;get length of path
+[ 310]        :                                       
+[ 311]    0625:                                       find_first_str:
+[ 312]    0625: BE 25 03                              mov si, offset cmdline_text
+[ 313]    0628: BF 00 00                              mov di, offset strToFind
+[ 314]    062B: 03 F0                                 add si, ax
+[ 315]    062D: 46                                    inc si; start of firtst substr
+[ 316]    062E: BB 00 00                              mov bx, 0000
+[ 317]        :                                       
+[ 318]    0631:                                       loop_to_find_end_of_first_str:
+[ 319]    0631: FE C3                                 inc bl
+[ 320]    0633: 8A 04                                 mov al, [si]
+[ 321]    0635: 3C 24                                 cmp al, '$' ; if true it is the end of 1st word
+[ 322]    0637: 74 0E                                 je end_of_1st_str  ;\\\\\\\\\\\\\\\\\\\\
+[ 323]    0639: 3C 0D                                 cmp al, 0Dh ; if true it is the end of 1st word
+[ 324]    063B: 75 03 E9 37 02                        je exit_with_error_cmd  ;\\\\\\\\\\\\\\\\\\\\
+[ 325]    0640: 26 88 05                              mov es:[di], al
+[ 326]        :                                       
+[ 327]    0643: 47                                    inc di
+[ 328]    0644: 46                                    inc si
+[ 329]    0645: E2 EA                                 loop loop_to_find_end_of_first_str
+[ 330]        :                                       
+[ 331]    0647:                                       end_of_1st_str:
+[ 332]    0647: FE CB                                 dec bl
+[ 333]    0649: 3E 88 1E BD 01                        mov ds:[strToFindLen], bl
+[ 334]    064E: 47                                    inc di
+[ 335]    064F: 26 C6 05 0D                           mov es:[di], 0Dh
+[ 336]    0653: 47                                    inc di
+[ 337]    0654: 26 C6 05 24                           mov es:[di], '$'
+[ 338]    0658: 46                                    inc si
+[ 339]    0659: BF 15 00                              mov di, offset strToReplace
+[ 340]    065C: BB 00 00                              mov bx, 0000
+[ 341]        :                                       
+[ 342]    065F:                                       find_word_to_replace:
+[ 343]    065F: FE C3                                 inc bl
+[ 344]    0661: 8A 04                                 mov al, [si]
+[ 345]    0663: 3C 0D                                 cmp al, 0Dh ; if true it is the end of 1st word
+[ 346]    0665: 74 07                                 je end_of_2st_str
+[ 347]    0667: 26 88 05                              mov es:[di], al
+[ 348]        :                                       
+[ 349]    066A: 47                                    inc di
+[ 350]    066B: 46                                    inc si
+[ 351]    066C: E2 F1                                 loop find_word_to_replace
+[ 352]        :                                       
+[ 353]    066E:                                       end_of_2st_str:
+[ 354]    066E: FE CB                                 dec bl
+[ 355]    0670: 88 1E BE 01                           mov strToReplaceLen, bl
+[ 356]    0674: 47                                    inc di
+[ 357]    0675: 26 C6 05 0D                           mov es:[di], 0Dh
+[ 358]    0679: 47                                    inc di
+[ 359]    067A: 26 C6 05 24                           mov es:[di], '$'
+[ 360]    067E: 46                                    inc si
+[ 361]        :                                       
+[ 362]    067F:                                       printer:
+[ 363]    067F: 50 52 BA 00 00 B4 09 CD 21 5A 58      print strToFind
+[ 364]    068A: 50 52 BA 03 02 B4 09 CD 21 5A 58      print EntryMsqStr
+[ 365]    0695: 50 52 BA 15 00 B4 09 CD 21 5A 58      print strToReplace
+[ 366]        :                                       
+[ 367]    06A0:                                       read_text_from_file:
+[ 368]    06A0: A0 BD 01                              mov al,strToFindLen
+[ 369]    06A3: B4 00                                 mov ah,0
+[ 370]    06A5: A3 BF 01                              mov sfindL,ax
+[ 371]    06A8: A0 BE 01                              mov al,strToReplaceLen
+[ 372]    06AB: B4 00                                 mov ah,0
+[ 373]    06AD: A3 C1 01                              mov sreplL,ax
+[ 374]        :                                       
+[ 375]        :                                       ;open exist file
+[ 376]    06B0: B8 00 3D                              	MOV   AX,  3D00h	
+[ 377]    06B3: BA 06 02                              	MOV   DX,  offset path	
+[ 378]    06B6: CD 21                                 	INT   21h	
+[ 379]    06B8: 50                                    	PUSH  AX	
+[ 380]        :                                       	;read from file
+[ 381]    06B9: B4 3F                                 	MOV   AH,  3Fh	
+[ 382]    06BB: 5B                                    	POP   BX	
+[ 383]    06BC: BA 2A 00                              	MOV   DX,  offset strWithText	
+[ 384]    06BF: CD 21                                 	INT   21h
+[ 385]    06C1: 8B C8                                 	MOV   CX, AX
+[ 386]    06C3: 88 0E BC 01                           	MOV   strTextLen, CL
+[ 387]        :                                       	;add $ to file
+[ 388]    06C7: BF 2A 00                              	MOV DI,  offset strWithText	
+[ 389]    06CA: B7 00                                 	mov bh,0
+[ 390]    06CC: 8A 1E BC 01                           mov bl,strtextlen		
+[ 391]    06D0: C6 01 24                              	MOV   BYTE PTR [DI+BX], '$'
+[ 392]    06D3: C6 41 FF 0D                           	MOV   BYTE PTR [DI+BX-1], 0Dh
+[ 393]        :                                       	;close file
+[ 394]    06D7: B4 3E                                 	MOV   AH,  3Eh	
+[ 395]    06D9: CD 21                                 	INT   21h
+[ 396]        :                                       	;open exist file
+[ 397]    06DB: B8 00 3D                              	MOV   AX,  3D00h	
+[ 398]    06DE: BA 06 02                              	MOV   DX,  offset path	
+[ 399]    06E1: CD 21                                 	INT   21h	
+[ 400]    06E3: 50                                    	PUSH  AX
+[ 401]        :                                       	;read from file
+[ 402]    06E4: B4 3F                                 	MOV   AH,  3Fh	
+[ 403]    06E6: 5B                                    	POP   BX	
+[ 404]    06E7: BA 2C 00                              MOV   DX,  offset strtext2	
+[ 405]    06EA: CD 21                                 	INT   21h
+[ 406]        :                                       
+[ 407]        :                                       	;close file
+[ 408]    06EC: B4 3E                                 	MOV   AH,  3Eh	
+[ 409]    06EE: CD 21                                 	INT   21h
+[ 410]        :                                       	
+[ 411]        :                                       	;add $ to file
+[ 412]    06F0: BF 2C 00                              	MOV DI,  offset strtext2	
+[ 413]    06F3: B7 00                                 	mov bh,0
+[ 414]    06F5: 8A 1E BC 01                           mov bl,strtextlen		
+[ 415]    06F9: C6 01 24                              	MOV   BYTE PTR [DI+BX], '$'
+[ 416]    06FC: C6 41 FF 0D                           	MOV   BYTE PTR [DI+BX-1], 0Dh
+[ 417]        :                                       	
+[ 418]    0700: A0 BC 01                              	mov al, strTextLen
+[ 419]    0703: B4 00                                 	mov ah, 0
+[ 420]        :                                       	
+[ 421]    0705: A0 BC 01                              	mov al, strTextLen
+[ 422]    0708: 8A 1E BD 01                           	mov bl, [strToFindLen]
+[ 423]    070C: 2A C3                                 	sub al, bl
+[ 424]    070E: 02 06 BE 01                           	add al, [strToReplaceLen]
+[ 425]    0712: 88 06 59 00                           	mov strLen, al
+[ 426]    0716: B0 59                                 	mov al, strLen
+[ 427]    0718: BE 2A 00                              	mov si, offset strWithText
+[ 428]    071B: 46                                    	inc si
+[ 429]    071C: 46                                    	inc si
+[ 430]    071D: BF F4 00                              mov di,offset outtext
+[ 431]        :                                       
+[ 432]    0720: AC                                    Do: lodsb     ;load si to al/ax
+[ 433]    0721: AA                                    stosb     ; save di in al
+[ 434]    0722: 8A 05                                 mov al, [di]
+[ 435]    0724: 8A 04                                 mov al, [si]
+[ 436]    0726: AA                                    stosb
+[ 437]    0727: 4F                                    dec di
+[ 438]    0728: 3C 0D                                 cmp al,0Dh   ; is it end of str??
+[ 439]    072A: 74 0A                                 jz outprint   ; if yes go to outprint
+[ 440]    072C: E8 72 00                              call find     ; if no lets find
+[ 441]    072F: 75 EF                                 jnz Do
+[ 442]    0731: E8 91 00                              call replace
+[ 443]    0734: EB EA                                 jmp Do
+[ 444]        :                                       
+[ 445]    0736:                                       outprint:
+[ 446]        :                                       
+[ 447]    0736: 50 52 BA 03 02 B4 09 CD 21 5A 58      print EntryMsqStr
+[ 448]    0741: BE F4 00                              mov si,offset outtext
+[ 449]    0744: B7 00                                 mov bh, 0
+[ 450]    0746: B3 00                                 	mov bl, 0
+[ 451]        :                                       	;print outtext
+[ 452]        :                                       
+[ 453]        :                                       
+[ 454]    0748:                                       PrintResult:
+[ 455]    0748: AC                                    lodsb
+[ 456]    0749: 43                                    inc bx
+[ 457]    074A: 3C 0D                                 cmp al,0Dh
+[ 458]    074C: 74 08                                 jz exit
+[ 459]    074E: 8A D0                                 mov dl,al
+[ 460]    0750: B4 02                                 mov ah,2
+[ 461]    0752: CD 21                                 int 21h
+[ 462]    0754: EB F2                                 jmp PrintResult
+[ 463]        :                                       
+[ 464]    0756:                                       exit:
+[ 465]    0756: 88 1E 59 00                           mov strLen, bl
+[ 466]    075A: B3 01                                 mov bl, 1
+[ 467]    075C: B3 59                                 mov bl, strLen
+[ 468]        :                                       
+[ 469]        :                                       ;open file
+[ 470]    075E: B8 02 3D                              MOV   AX,  3D02h	
+[ 471]    0761: BA 06 02                              	MOV   DX,  offset path	
+[ 472]    0764: CD 21                                 	INT   21h		
+[ 473]    0766: 50                                    	push  AX
+[ 474]        :                                       	;correct caretka
+[ 475]    0767: 50                                    	push ax
+[ 476]    0768: B8 42 00                              	mov AX, 42h
+[ 477]    076B: 5B                                    	POP BX
+[ 478]    076C: BA 00 00                              	mov dx, 0
+[ 479]    076F: B0 00                                 	mov al, 0
+[ 480]        :                                       	;write in file
+[ 481]    0771: B4 40                                 	MOV   AH,  40h		
+[ 482]    0773: 5B                                    	POP   BX		
+[ 483]    0774: BA F4 00                              	MOV   DX,  offset outtext
+[ 484]    0777: B5 00                                 	mov ch, 0
+[ 485]    0779: B1 59                                 	MOV   CL,  strLen	
+[ 486]    077B: CD 21                                 	INT   21h	
+[ 487]        :                                       	;open exist file
+[ 488]    077D: B8 00 3D                              	MOV   AX,  3D00h	
+[ 489]    0780: BA 06 02                              	MOV   DX,  offset path	
+[ 490]    0783: CD 21                                 	INT   21h		
+[ 491]    0785: 50                                    	PUSH  AX	
+[ 492]        :                                       	;read from file
+[ 493]    0786: B4 3F                                 	MOV   AH,  3Fh	
+[ 494]    0788: 5B                                    	POP   BX	
+[ 495]    0789: BA F4 00                              	MOV   DX,  offset outtext	
+[ 496]    078C: CD 21                                 	INT   21h
+[ 497]        :                                       	;close file
+[ 498]    078E: B4 3E                                 	MOV   AH,  3Eh	
+[ 499]    0790: CD 21                                 	INT   21h
+[ 500]        :                                       	;
+[ 501]    0792: BE F4 00                              	mov si, offset outtext
+[ 502]    0795: B7 00                                 	mov bh, 0
+[ 503]    0797: B3 59                                 	mov bl, strLen
+[ 504]    0799: C6 01 24                              	mov BYTE PTR [DI + BX], '$'
+[ 505]    079C: B8 00 4C                              mov ax,4C00h
+[ 506]    079F: CD 21                                 int 21h
+[ 507]        :                                       
+[ 508]    07A1:                                       find:
+[ 509]    07A1: 56                                    push si                  ;save si
+[ 510]    07A2: 57                                    push di                  ; save di
+[ 511]    07A3: 8B 0E BF 01                           mov cx,sfindL            ;amount of finding str letters
+[ 512]    07A7: 8A 05                                 mov al, [di]
+[ 513]    07A9: 8A 04                                 mov al, [si]
+[ 514]    07AB: 2B F1                                 sub si,cx
+[ 515]        :                                       ;mov al, [strtext2]             ; si-cx ->
+[ 516]    07AD: 83 FE 2C                              cmp si,offset strtext2; cmp if start from si-cx with str to find
+[ 517]    07B0: 72 08                                 jc  return_no            ; if cf=1/ if below
+[ 518]    07B2: BF 00 00                              mov di,offset strToFind   ; if not below -> di=strfind2
+[ 519]        :                                       ;mov al, [di]
+[ 520]    07B5: F3 A6                                 repe cmpsb               ; repeat while is equal si and di
+[ 521]    07B7: 5F                                    pop di
+[ 522]    07B8: 5E                                    pop si
+[ 523]    07B9: C3                                    ret
+[ 524]        :                                       
+[ 525]    07BA:                                       return_no:
+[ 526]    07BA: B2 01                                 mov dl,1
+[ 527]    07BC: 0A D2                                 or dl,dl
+[ 528]    07BE: 47                                    inc di
+[ 529]    07BF: BF 0D 00                              mov di, 0Dh
+[ 530]    07C2: 5F                                    pop di
+[ 531]    07C3: 5E                                    pop si
+[ 532]    07C4: C3                                    ret
+[ 533]        :                                       
+[ 534]    07C5:                                       replace:
+[ 535]    07C5: 56                                    push si
+[ 536]        :                                       ;dec si
+[ 537]        :                                       ;dec di
+[ 538]    07C6: 2B 3E BF 01                           sub di,sfindL
+[ 539]    07CA: 8B 0E C1 01                           mov cx,sreplL
+[ 540]    07CE: BE 15 00                              mov si,offset strToReplace
+[ 541]    07D1: F3 A4                                 rep movsb
+[ 542]    07D3: 5E                                    pop si
+[ 543]        :                                       
+[ 544]    07D4: C3                                    	RET
+[ 545]        :                                       
+[ 546]    07D5:                                       start:
+[ 547]    07D5: B8 00 00                              mov ax, @data   ;the beginning of data in our program
+[ 548]    07D8: 8E C0                                 mov es, ax      ;mov it to additional data segment
+[ 549]    07DA: B5 00                                 mov ch,0
+[ 550]    07DC: 3E 8A 0E 80 00                        mov cl, ds:[80h];command line and DTA area are situated at 80h offset
+[ 551]        :                                       ;in cl the cmdline text length is stored now
+[ 552]    07E1: 88 0E 24 03                           mov cmdline_input_length, cl ;move it to the variable
+[ 553]    07E5: BE 82 00                              mov si, 82h         ;82 because first symbol is situated at this adress
+[ 554]        :                                       ;81h - space or tabulation
+[ 555]    07E8: BF 25 03                              mov di, offset cmdline_text
+[ 556]    07EB: F3 A4                                 rep movsb  ;text from command line to variable cmd_text
+[ 557]    07ED: 8E D8                                 mov ds, ax
+[ 558]        :                                       
+[ 559]    07EF: BE 25 03                              mov si, offset cmdline_text ;all text from command line
+[ 560]    07F2: BF A4 03                              mov di, offset cmd_file_path ;path to file
+[ 561]    07F5: B9 00 00                              mov cx,0
+[ 562]        :                                       
+[ 563]    07F8:                                       copy_loop: ;copy text from command line to path
+[ 564]    07F8: 8A 04                                 mov al, [si]
+[ 565]    07FA: 3C 20                                 cmp al, ' ' ;if we meet space, we reached the path's end
+[ 566]    07FC: 74 10                                 je word_copy
+[ 567]    07FE: 3C 24                                 cmp al,'$' ;if this symbol has been met, user didn't input any word, it's an error
+[ 568]    0800: 75 03 E9 98 00                        je no_word
+[ 569]    0805: 88 05                                 mov [di], al
+[ 570]    0807: 46                                    inc si
+[ 571]    0808: 47                                    inc di
+[ 572]    0809: FE C3                                 inc bl
+[ 573]    080B: 41                                    inc cx
+[ 574]    080C: EB EA                                 jmp copy_loop
+[ 575]        :                                       
+[ 576]    080E:                                       word_copy:
+[ 577]    080E: B3 00                                 mov bl,0 ; length of the word
+[ 578]    0810: BF 12 02                              mov di, offset word
+[ 579]    0813: 88 05                                 mov [di], al
+[ 580]    0815: 46                                    inc si
+[ 581]    0816: 47                                    inc di
+[ 582]    0817: 47                                    inc di
+[ 583]    0818:                                       copy_word:
+[ 584]    0818: 8A 04                                 mov al, [si]
+[ 585]    081A: 3C 0D                                 cmp al, 0Dh ;if caret symbol has been met, finish checking
+[ 586]    081C: 74 08                                 je finish
+[ 587]    081E: 88 05                                 mov [di], al
+[ 588]    0820: 46                                    inc si
+[ 589]    0821: 47                                    inc di
+[ 590]    0822: FE C3                                 inc bl
+[ 591]    0824: EB F2                                 jmp copy_word
+[ 592]        :                                       
+[ 593]    0826:                                       finish:
+[ 594]    0826: 80 FB 32                              cmp bl,50 ;check if length is less than 50
+[ 595]    0829: 7F 5F                                 jg long_word
+[ 596]    082B: C6 05 24                              mov [di],'$'
+[ 597]    082E: BF 12 02                              mov di, offset word
+[ 598]    0831: 47                                    inc di
+[ 599]    0832: 88 1D                                 mov [di],bl ;mov length to the second position
+[ 600]        :                                       
+[ 601]    0834: E8 79 FD                              call parse_cmdline_text ;transform text from cmdline to ascii code
+[ 602]    0837: 85 C0                                 test ax, ax ;check if ax is 0, if not, there were problems
+[ 603]    0839: 75 29                                 jne exit2
+[ 604]    083B: 50 52 BA 23 04 B4 09 CD 21 5A 58      print path_to_file
+[ 605]    0846: BA 23 04 B4 3D B0 00 CD 21 73 03 E9   fopen ;open file
+                02 FF 8B D8                         
+[ 606]    0856: 50 52 BA 03 02 B4 09 CD 21 5A 58      print EntryMsqStr
+[ 607]        :                                       ;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+[ 608]        :                                       ;print msg_amount_of_strings ;print prompt
+[ 609]    0861: E9 B9 FD                              jmp count_rows ;count rows containing this word
+[ 610]        :                                       
+[ 611]    0864:                                       count_rows_end: ;we can be here if we had problems
+[ 612]        :                                       
+[ 613]    0864:                                       exit2:
+[ 614]    0864: 50 52 BA BC 02 B4 09 CD 21 5A 58      print msg_error ;print error message
+[ 615]    086F: 5A                                    pop dx
+[ 616]    0870: 59                                    pop cx
+[ 617]    0871: 58                                    pop ax
+[ 618]    0872: B8 00 4C                              mov ax, 4c00h ;finish the program
+[ 619]    0875: CD 21                                 int 21h
+[ 620]        :                                       
+[ 621]    0877:                                       exit_with_error_cmd:
+[ 622]    0877: 50 52 BA C6 02 B4 09 CD 21 5A 58      print msg_error_of_cmd ;print error message
+[ 623]    0882: 5A                                    pop dx
+[ 624]    0883: 59                                    pop cx
+[ 625]    0884: 58                                    pop ax
+[ 626]    0885: B8 00 4C                              mov ax, 4c00h ;finish the program
+[ 627]    0888: CD 21                                 int 21h
+[ 628]        :                                       
+[ 629]    088A:                                       long_word:
+[ 630]    088A: 50 52 BA E9 02 B4 09 CD 21 5A 58      print msg_warning_wordlength
+[ 631]    0895: 5A                                    pop dx
+[ 632]    0896: 59                                    pop cx
+[ 633]    0897: 58                                    pop ax
+[ 634]    0898: B8 00 4C                              mov ax, 4c00h ;finish the program
+[ 635]    089B: CD 21                                 int 21h
+[ 636]    089D:                                       no_word:
+[ 637]    089D: 50 52 BA 0A 03 B4 09 CD 21 5A 58      print msg_no_word_error
+[ 638]    08A8: 5A                                    pop dx
+[ 639]    08A9: 59                                    pop cx
+[ 640]    08AA: 58                                    pop ax
+[ 641]    08AB: B8 00 4C                              mov ax, 4c00h ;finish the program
+[ 642]    08AE: CD 21                                 int 21h
+[ 643]    08B0:                                       good_exit:
+[ 644]    08B0: B4 3E CD 21                           fclose
+[ 645]    08B4: 59                                    pop cx
+[ 646]    08B5: 58                                    pop ax
+[ 647]    08B6: 8B C2                                 mov ax, dx      ;move the amount of rows in ax
+[ 648]    08B8: 50 51 6A FF B9 0A 00 BA 00 00 B4 00   output_number   ;output transforming to ascii
+                F6 F1 8A D4 52 3C 00 75 F2 B4 02 5A 
+                83 FA FF 74 07 80 C2 30 CD 21 EB F3 
+                B2 20 CD 21 59 58                   
+[ 649]    08E2: B8 00 4C                              mov ax, 4c00h ;finish the program
+[ 650]    08E5: CD 21                                 int 21h
+[ 651]        :                                       
+[ 652]        :                                       
+[ 653]        :                                       end start
+[ 654]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: E7      -   bytes on last page (l.byte)
+0003: 00      -   bytes on last page (h.byte)
+0004: 06      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 4B      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 01      -   SP - stack pointer (h.byte)
+0012: 1D      -   check sum (l.byte)
+0013: 31      -   check sum (h.byte)
+0014: 25      -   IP - instruction pointer (l.byte)
+0015: 02      -   IP - instruction pointer (h.byte)
+0016: 5B      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 26      -   relocation table - offset inside segment (l.byte)
+001F: 02      -   relocation table - offset inside segment (h.byte)
+0020: 5B      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================

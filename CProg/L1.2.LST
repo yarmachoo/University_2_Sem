@@ -1,0 +1,16 @@
+  ADDR B1 B2 B3 B4 D:\Uni\CProg\L1.2.asm                            PAGE       1
+
+                    org $8100
+  8100 86 01        ldaa #$1 :
+  8102 C6 02        ldab #$2 :
+
+  8104 CE 00 00     ldx #$0 :    x
+  8107 E7 00        stab 0,x :    B   $0000
+  8109 C6 03        ldab #$3 :    B  3
+  810B 3D           mul :
+
+  810C A6 00        ldaa 0,x :
+  810E 1B           aba :
+  810F 16           tab :
+  8110 86 81        ldaa #$81 :   81
+

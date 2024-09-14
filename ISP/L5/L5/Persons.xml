@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<people>
+    <person name="Alex">
+        <company>Google</company>
+        <age>23</age>
+    </person>
+    <person name="Evj">
+        <company>Yandex</company>
+        <age>19</age>
+    </person>
+</people>

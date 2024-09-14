@@ -1,0 +1,237 @@
+  ADDR B1 B2 B3 B4 D:\Uni\CProg\L5.asm                              PAGE       1
+
+                   .model small
+E                         ^ Unknown instruction or directive.
+                   .code
+                   org 100h
+E                      ^ Unexpected character in instruction or directive.
+                   jmp start
+E                      ^ Unknown instruction or directive.
+                       strToFind db 20
+E                      ^ Unknown instruction or directive.
+                       strToFindLen db 0
+E                      ^ Unknown instruction or directive.
+                       strfind2 db 20 dup (0)
+E                             ^ Unexpected character in instruction or
+.                               directive.
+
+                       strToReplace db 20
+E                      ^ Unknown instruction or directive.
+                       strToReplaceLen db 0
+E                      ^ Unknown instruction or directive.
+                       strrepl2 db 20 dup (0)
+E                             ^ Unexpected character in instruction or
+.                               directive.
+
+                       strWithText db 200
+E                      ^ Unknown instruction or directive.
+                       strTextLen db 0
+E                      ^ Unknown instruction or directive.
+                       strtext2 db 200 dup (0)
+E                             ^ Unexpected character in instruction or
+.                               directive.
+
+                       outtext db 200 dup (0)
+E                      ^ Unknown instruction or directive.
+
+                       sfindL dw 0
+E                      ^ Unknown instruction or directive.
+                       sreplL dw 0
+E                      ^ Unknown instruction or directive.
+
+                       find_text db "Input word to find: ",0Dh, 0Ah, 24h
+E                          ^ Unexpected character in instruction or directive.
+                       replace_text db "Input word to replace: ",0Dh, 0Ah, 24h
+E                             ^ Unexpected character in instruction or
+.                               directive.
+                       text db "Input text: ",0Dh, 0Ah, 24h
+E                      ^ Unknown instruction or directive.
+
+                       empty_msg db 13,10,"$"
+E                           ^ Unexpected character in instruction or directive.
+
+                   print macro txt
+E                        ^ Unknown instruction or directive.
+                       mov dx,offset txt
+E                      ^ Unknown instruction or directive.
+                       mov ah,9
+E                      ^ Unknown instruction or directive.
+                       int 21h
+E                      ^ Unknown instruction or directive.
+                   endm
+
+                   input macro buf
+E                        ^ Unknown instruction or directive.
+                       mov dx,offset buf
+E                      ^ Unknown instruction or directive.
+                       mov ah,10
+  ADDR B1 B2 B3 B4 D:\Uni\CProg\L5.asm                              PAGE       2
+
+E                      ^ Unknown instruction or directive.
+                       int 21h
+E                      ^ Unknown instruction or directive.
+                   endm
+E                  ^ This label already exists.
+
+                   start:
+                       mov ax,cs
+E                      ^ Unknown instruction or directive.
+                       mov ds,ax
+E                      ^ Unknown instruction or directive.
+                       mov es,ax
+E                      ^ Unknown instruction or directive.
+
+                       print text
+E                      ^ Unknown instruction or directive.
+                       input strWithText
+E                      ^ Unknown instruction or directive.
+
+                       print empty_msg
+E                      ^ Unknown instruction or directive.
+
+                       print find_text
+E                      ^ Unknown instruction or directive.
+                       input strToFind
+E                      ^ Unknown instruction or directive.
+
+                       mov al,strToFindLen
+E                      ^ Unknown instruction or directive.
+                       mov ah,0
+E                      ^ Unknown instruction or directive.
+                       mov sfindL,ax
+E                      ^ Unknown instruction or directive.
+
+                       print empty_msg
+E                      ^ Unknown instruction or directive.
+
+                       print replace_text
+E                      ^ Unknown instruction or directive.
+                       input strToReplace
+E                      ^ Unknown instruction or directive.
+
+                       mov al,strToReplaceLen
+E                      ^ Unknown instruction or directive.
+                       mov ah,0
+E                      ^ Unknown instruction or directive.
+                       mov sreplL,ax
+E                      ^ Unknown instruction or directive.
+
+                       print empty_msg
+E                      ^ Unknown instruction or directive.
+
+                       ;cld
+                       mov si,offset strtext2
+E                      ^ Unknown instruction or directive.
+                       mov di,offset outtext
+E                      ^ Unknown instruction or directive.
+
+                   m0: lodsb
+E                      ^ Unknown instruction or directive.
+                       stosb
+E                      ^ Unknown instruction or directive.
+                       cmp al,0Dh
+E                      ^ Unknown instruction or directive.
+                       jz outprint
+  ADDR B1 B2 B3 B4 D:\Uni\CProg\L5.asm                              PAGE       3
+
+E                      ^ Unknown instruction or directive.
+                       call find
+E                      ^ Unknown instruction or directive.
+                       jnz m0
+E                      ^ Unknown instruction or directive.
+                       call replace
+E                      ^ Unknown instruction or directive.
+                       jmp m0
+E                          ^ Unknown identifier.
+
+                   outprint: print empty_msg
+E                            ^ Unknown instruction or directive.
+                       mov si,offset outtext
+E                      ^ Unknown instruction or directive.
+
+                   m1: lodsb
+E                      ^ Unknown instruction or directive.
+                       cmp al,0Dh
+E                      ^ Unknown instruction or directive.
+                       jz exit
+E                      ^ Unknown instruction or directive.
+                       mov dl,al
+E                      ^ Unknown instruction or directive.
+                       mov ah,2
+E                      ^ Unknown instruction or directive.
+                       int 21h
+E                      ^ Unknown instruction or directive.
+                       jmp m1
+E                          ^ Unknown identifier.
+
+                   exit:
+                       mov ax,4C00h
+E                      ^ Unknown instruction or directive.
+                       int 21h
+E                      ^ Unknown instruction or directive.
+
+                   find:
+                       push si
+E                      ^ Unknown instruction or directive.
+                       push di
+E                      ^ Unknown instruction or directive.
+                       mov cx,sfindL
+E                      ^ Unknown instruction or directive.
+                       sub si,cx
+E                      ^ Unknown instruction or directive.
+                       cmp si,offset strtext2
+E                      ^ Unknown instruction or directive.
+                       jc  return_no
+E                      ^ Unknown instruction or directive.
+                       mov di,offset strfind2
+E                      ^ Unknown instruction or directive.
+                       repe cmpsb
+E                      ^ Unknown instruction or directive.
+                       pop di
+E                      ^ Unknown instruction or directive.
+                       pop si
+E                      ^ Unknown instruction or directive.
+                       ret
+E                      ^ Unknown instruction or directive.
+
+                   return_no:
+                       mov dl,1
+E                      ^ Unknown instruction or directive.
+                       or dl,dl
+E                      ^ Unknown instruction or directive.
+  ADDR B1 B2 B3 B4 D:\Uni\CProg\L5.asm                              PAGE       4
+
+                       pop di
+E                      ^ Unknown instruction or directive.
+                       pop si
+E                      ^ Unknown instruction or directive.
+                       ret
+E                      ^ Unknown instruction or directive.
+
+                   replace:
+                       push si
+E                      ^ Unknown instruction or directive.
+                       sub di,sfindL
+E                      ^ Unknown instruction or directive.
+                       mov cx,sreplL
+E                      ^ Unknown instruction or directive.
+                       mov si,offset strrepl2
+E                      ^ Unknown instruction or directive.
+                       rep movsb
+E                      ^ Unknown instruction or directive.
+                       pop si
+E                      ^ Unknown instruction or directive.
+                       ret
+E                      ^ Unknown instruction or directive.
+
+                       end start
+
+  Symbol Table 
+
+  EXIT               C000
+  RETURN_NO          C000
+  START              C000
+  ENDM               C000
+  .CODE              C000
+  REPLACE            C000
+  FIND               C000

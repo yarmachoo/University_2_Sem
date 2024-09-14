@@ -1,0 +1,35 @@
+  ADDR B1 B2 B3 B4 thrass11.tmp                                     PAGE       1
+
+                    ORG $8000
+
+  8000 D6 FF        LDAB $FF
+  8002 18 CE 00 00  LDY #$0
+  8006 18 FF 20 00  STY $2000
+  800A 86 55        LDAA #$55
+  800C F7 20 00     STAB $2000
+  800F 18 FE 20 00  LDY $2000
+  8013 CE 00 07     LDX #$7
+
+                   LOOP:
+  8016 18 1F 01 01         BRCLR 1,y,#$1,bit_set
+. 801A 06
+  801B D6 FF               LDAB $FF
+  801D E7 00               STAB 0,x
+  801F 20 04               BRA next_bit
+
+                   bit_set:
+  8021 C6 00               LDAB #$00
+  8023 E7 00               STAB 0,x
+                   next_bit:
+  8025 09                  DEX
+  8026 44                  LSRA
+  8027 B7 20 00            STAA $2000
+  802A 18 FE 20 00         LDY $2000
+
+  802E 26 E6               bne loop
+
+  Symbol Table 
+
+  BIT_SET            8021
+  NEXT_BIT           8025
+  LOOP               8016

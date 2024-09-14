@@ -1,0 +1,6 @@
+D:\Uni\ISP\ReflectionTest\ReflectionTest\bin\Debug\ReflectionTest.exe
+D:\Uni\ISP\ReflectionTest\ReflectionTest\bin\Debug\ReflectionTest.pdb
+D:\Uni\ISP\ReflectionTest\ReflectionTest\obj\Debug\ReflectionTest.csproj.AssemblyReference.cache
+D:\Uni\ISP\ReflectionTest\ReflectionTest\obj\Debug\ReflectionTest.csproj.CoreCompileInputs.cache
+D:\Uni\ISP\ReflectionTest\ReflectionTest\obj\Debug\ReflectionTest.exe
+D:\Uni\ISP\ReflectionTest\ReflectionTest\obj\Debug\ReflectionTest.pdb

@@ -1,0 +1,6 @@
+D:\Uni\ISP\L4\L4\bin\Debug\L4.exe
+D:\Uni\ISP\L4\L4\bin\Debug\L4.pdb
+D:\Uni\ISP\L4\L4\obj\Debug\L4.csproj.AssemblyReference.cache
+D:\Uni\ISP\L4\L4\obj\Debug\L4.csproj.CoreCompileInputs.cache
+D:\Uni\ISP\L4\L4\obj\Debug\L4.exe
+D:\Uni\ISP\L4\L4\obj\Debug\L4.pdb

@@ -1,0 +1,57 @@
+< THE SYMBOL TABLE >  L7_2.exe  --  emu8086 assembler version: 4.05 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+STACK                    	00000     	-5        	SEGMENT   	(ITSELF)  
+DATA                     	00010     	-5        	SEGMENT   	(ITSELF)  
+ERRMESSAGE1              	00000     	1         	VAR       	data      
+ERRMESSAGE2              	00006     	1         	VAR       	data      
+ERRMESSAGE3              	0001E     	1         	VAR       	data      
+ERRMESSAGE4              	00047     	1         	VAR       	data      
+RUNERROR0                	00062     	1         	VAR       	data      
+RUNERROR1                	00077     	1         	VAR       	data      
+RUNERROR2                	00088     	1         	VAR       	data      
+RUNERROR3                	0009D     	1         	VAR       	data      
+ENDL                     	000AD     	1         	VAR       	data      
+N                        	000B0     	1         	VAR       	data      
+NAME_EXE                 	000B4     	1         	VAR       	data      
+EPB                      	000F4     	2         	VAR       	data      
+CMD_OFF                  	000F6     	2         	VAR       	data      
+CMD_SEG                  	000F8     	2         	VAR       	data      
+FCB_1                    	000FA     	2         	VAR       	data      
+FCB_2                    	000FE     	2         	VAR       	data      
+COM_LINE                 	00102     	1         	VAR       	data      
+_LOCATION_COUNTER__N1_L1D	00181     	-1        	LABEL     	data      
+CODE                     	00029     	-5        	SEGMENT   	(ITSELF)  
+BEGIN                    	00000     	-1        	LABEL     	code      
+EXIT                     	00000     	-1        	NEAR      	code      
+ATOI                     	00005     	-1        	NEAR      	code      
+CHECK_DIGIT              	0000B     	-1        	LABEL     	code      
+EXIT_FROM_CYCLE          	00030     	-1        	LABEL     	code      
+CONVERT                  	0003C     	-1        	LABEL     	code      
+ERROR_GET                	00054     	-1        	LABEL     	code      
+SCAN_CMD                 	00067     	-1        	NEAR      	code      
+GET_PARAMETRS            	00097     	-1        	LABEL     	code      
+END_SCANNING             	000AA     	-1        	LABEL     	code      
+EMPTY_LINE               	000AB     	-1        	LABEL     	code      
+GET_PARAMETR             	000BE     	-1        	NEAR      	code      
+WRITE_CYCLE              	000BE     	-1        	LABEL     	code      
+END_OF_WRITE             	000D7     	-1        	LABEL     	code      
+SKIP_SPACES              	000D8     	-1        	NEAR      	code      
+CYCLE                    	000D9     	-1        	LABEL     	code      
+END_OF_SKIPPING          	000F2     	-1        	LABEL     	code      
+CHANGE_SIZE              	000F3     	-1        	NEAR      	code      
+MEMORY_ISSUES            	000FD     	-1        	LABEL     	code      
+RUN_EXE                  	00110     	-1        	NEAR      	code      
+ERROR                    	00123     	-1        	LABEL     	code      
+ERROR_1                  	0013B     	-1        	LABEL     	code      
+ERROR_2                  	00153     	-1        	LABEL     	code      
+ERROR_3                  	0016B     	-1        	LABEL     	code      
+ERROR_N                  	00183     	-1        	LABEL     	code      
+START                    	00196     	-1        	LABEL     	code      
+RUN_EXE_CYCLE            	001B1     	-1        	LABEL     	code      
+_LOCATION_COUNTER__N2_LF4	001B9     	-1        	LABEL     	code      
+===================================================================================================
+[ 10.12.2023  --  18:09:13 ] 
+< END >
+ 

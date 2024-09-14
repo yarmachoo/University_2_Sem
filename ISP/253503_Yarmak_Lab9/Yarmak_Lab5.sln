@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_253503_Yarmak_Lab5", "_253503_Yarmak_Lab5\_253503_Yarmak_Lab5.csproj", "{B3ED2023-3E6D-4656-935E-BFC42CDBC40A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yarmak_Lab5.Domain", "Yarmak_Lab5.Domain\Yarmak_Lab5.Domain.csproj", "{77DB3AEE-C14D-44BC-9628-1C6782ED7002}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializerLib", "SerializerLib\SerializerLib.csproj", "{8336BEFF-0999-40C7-9DE3-0A728158A0D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3ED2023-3E6D-4656-935E-BFC42CDBC40A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3ED2023-3E6D-4656-935E-BFC42CDBC40A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3ED2023-3E6D-4656-935E-BFC42CDBC40A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3ED2023-3E6D-4656-935E-BFC42CDBC40A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77DB3AEE-C14D-44BC-9628-1C6782ED7002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77DB3AEE-C14D-44BC-9628-1C6782ED7002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77DB3AEE-C14D-44BC-9628-1C6782ED7002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77DB3AEE-C14D-44BC-9628-1C6782ED7002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8336BEFF-0999-40C7-9DE3-0A728158A0D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8336BEFF-0999-40C7-9DE3-0A728158A0D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8336BEFF-0999-40C7-9DE3-0A728158A0D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8336BEFF-0999-40C7-9DE3-0A728158A0D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

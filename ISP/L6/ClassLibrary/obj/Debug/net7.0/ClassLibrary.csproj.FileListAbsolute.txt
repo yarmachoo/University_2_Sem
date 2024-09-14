@@ -1,0 +1,14 @@
+D:\Uni\ISP\L6\ClassLibrary\bin\Debug\net7.0\ClassLibrary.deps.json
+D:\Uni\ISP\L6\ClassLibrary\bin\Debug\net7.0\ClassLibrary.dll
+D:\Uni\ISP\L6\ClassLibrary\bin\Debug\net7.0\ClassLibrary.pdb
+D:\Uni\ISP\L6\ClassLibrary\obj\Debug\net7.0\ClassLibrary.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uni\ISP\L6\ClassLibrary\obj\Debug\net7.0\ClassLibrary.AssemblyInfoInputs.cache
+D:\Uni\ISP\L6\ClassLibrary\obj\Debug\net7.0\ClassLibrary.AssemblyInfo.cs
+D:\Uni\ISP\L6\ClassLibrary\obj\Debug\net7.0\ClassLibrary.csproj.CoreCompileInputs.cache
+D:\Uni\ISP\L6\ClassLibrary\obj\Debug\net7.0\ClassLibrary.dll
+D:\Uni\ISP\L6\ClassLibrary\obj\Debug\net7.0\refint\ClassLibrary.dll
+D:\Uni\ISP\L6\ClassLibrary\obj\Debug\net7.0\ClassLibrary.pdb
+D:\Uni\ISP\L6\ClassLibrary\obj\Debug\net7.0\ref\ClassLibrary.dll
+D:\Uni\ISP\L6\L6\net7.0\ClassLibrary.deps.json
+D:\Uni\ISP\L6\L6\net7.0\ClassLibrary.dll
+D:\Uni\ISP\L6\L6\net7.0\ClassLibrary.pdb

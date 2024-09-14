@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "2vUus+3FFVXF8HKu4qr/9bDOa4T/O0lRZubMpAS3j92KwOXBXM0m8c2JtIyuw2Qe8F07VMcpTGjfknOgJGiYoA==",
+  "success": true,
+  "projectFilePath": "D:\\Uni\\ISP\\L8_13\\lab8\\ThreadingLibrary\\ThreadingLibrary.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\veron\\.nuget\\packages\\loremnet\\2.0.0\\loremnet.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

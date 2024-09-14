@@ -1,0 +1,974 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+L7.exe -- emu8086 assembler version: 4.05  
+ 
+[ 17.12.2023  --  17:01:51 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       .model small
+[   2]        :                                       .stack 100h
+[   3]        :                                       .data
+[   4]        :                                       
+[   5]    0100: 45 72 72 6F 72 24                     errMsq1 db "Error", '$'
+[   6]        :                                       ;errMsq2 db \
+[   7]    0106: 0D 0A 24                              EntryMsqStr db 13,10,"$"
+[   8]        :                                       
+[   9]    0109: 62 6C 6F 63 6B 73 20 61 72 65 20 76   err_msq1 db "blocks are vanished", '$'
+                61 6E 69 73 68 65 64 24             
+[  10]    011D: 6E 6F 74 20 65 6E 6F 67 68 74 20 6D   err_msq2 db "not enoght memory", '$'
+                65 6D 6F 72 79 24                   
+[  11]    012F: 70 72 6F 62 6C 65 6D 73 20 77 69 74   err_msq3 db "problems with ES", '$'
+                68 20 45 53 24                      
+[  12]        :                                       
+[  13]    0140: 45 72 72 6F 72 24                     errMessage1 db "Error", '$'
+[  14]    0146: 43 6F 6D 6D 61 6E 64 20 6C 69 6E 65   errMessage2 db "Command line is empty :(", '$'
+                20 69 73 20 65 6D 70 74 79 3A 28 24 
+                                                    
+[  15]    015E: 50 6C 65 61 73 65 2C 20 65 6E 74 65   errMessage3 db "Please, enter a NUMBER in RANGE [0, 255]", '$'
+                72 20 61 20 4E 55 4D 42 45 52 20 69 
+                6E 20 52 41 4E 47 45 20 5B 30 2C 20 
+                32 35 35 5D 24                      
+[  16]    0187: 45 72 72 6F 72 20 69 6E 20 6D 65 6D   errMessage4 db "Error in memory allocation", '$'
+                6F 72 79 20 61 6C 6C 6F 63 61 74 69 
+                6F 6E 24                            
+[  17]        :                                       
+[  18]    01A2: 46 69 6C 65 20 69 73 20 6E 6F 74 20   runError0 db "File is not found :( $"
+                66 6F 75 6E 64 3A 28 20 24          
+[  19]    01B7: 41 63 63 65 73 73 20 64 65 6E 69 65   runError1 db "Access denied :( $"
+                64 3A 28 20 24                      
+[  20]    01C8: 4E 6F 74 20 65 6E 6F 75 67 68 20 6D   runError2 db "Not enough memory :( $"
+                65 6D 6F 72 79 3A 28 20 24          
+[  21]    01DD: 57 72 6F 6E 67 20 66 6F 72 6D 61 74   runError3 db "Wrong format :( $"
+                3A 28 20 24                         
+[  22]    01ED: 50 61 74 68 20 69 73 20 6E 6F 74 20   runError4 db "Path is not found :( $"
+                66 6F 75 6E 64 3A 28 20 24          
+[  23]        :                                       
+[  24]        :                                       cmdline_input_max_length equ 127
+[  25]    0202: 00                                    cmdline_input_length db ?
+[  26]    0203: 24 24 24 24 24 24 24 24 24 24 24 24   cmdline_text db cmdline_input_max_length dup ('$') ;variable for text from command line
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24                
+[  27]    0282: 24 24 24 24 24 24 24 24 24 24 24 24   cmd_file_path db cmdline_input_max_length dup('$') ;variable for path
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24                
+[  28]    0301: 24 24 24 24 24 24 24 24 24 24 24 24   path_to_file  db cmdline_input_max_length dup ('$')
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24 24 24 24 24 24 
+                24 24 24 24 24 24 24                
+[  29]    0380: 00                                    path_to_file_length db ?
+[  30]        :                                       
+[  31]    0381: 45 6E 74 65 72 20 74 68 65 20 77 6F   msg_invite_to_input_word db 'Enter the word that must be searched',0Dh,0Ah,'$'
+                72 64 20 74 68 61 74 20 6D 75 73 74 
+                20 62 65 20 73 65 61 72 63 68 65 64 
+                0D 0A 24                            
+[  32]    03A8: 54 68 65 20 61 6D 6F 75 6E 74 20 6F   msg_amount_of_strings db 'The amount of strings containing this word:',0Dh,0Ah,'$'
+                66 20 73 74 72 69 6E 67 73 20 63 6F 
+                6E 74 61 69 6E 69 6E 67 20 74 68 69 
+                73 20 77 6F 72 64 3A 0D 0A 24       
+[  33]    03D6: 43 6F 6D 6D 61 6E 64 20 6C 69 6E 65   msg_bad_args db 'Command line parse error', 0Dh, 0Ah, '$'
+                20 70 61 72 73 65 20 65 72 72 6F 72 
+                0D 0A 24                            
+[  34]    03F1: 0D 0A 45 72 72 6F 72 0D 0A 24         msg_error db 0Dh, 0Ah, 'Error', 0Dh, 0Ah, '$'
+[  35]    03FB: 0D 0A 45 72 72 6F 72 20 77 69 74 68   msg_error_of_cmd db 0Dh, 0Ah, 'Error with input cmd parametrs', 0Dh, 0Ah, '$'
+                20 69 6E 70 75 74 20 63 6D 64 20 70 
+                61 72 61 6D 65 74 72 73 0D 0A 24    
+[  36]    041E: 57 6F 72 64 20 69 73 20 6C 6F 6E 67   msg_warning_wordlength db 'Word is longer than 50 symbols',0Dh, 0Ah, '$'
+                65 72 20 74 68 61 6E 20 35 30 20 73 
+                79 6D 62 6F 6C 73 0D 0A 24          
+[  37]    043F: 57 6F 72 64 20 68 61 73 20 6E 6F 74   msg_no_word_error db 'Word has not been found', 0Dh, 0Ah, '$'
+                20 62 65 65 6E 20 66 6F 75 6E 64 0D 
+                0A 24                               
+[  38]        :                                       
+[  39]    0459: 02 00 24 24 24                        buf db 2, 0, 2 dup('$'), '$'
+[  40]        :                                       
+[  41]    045E: 24 24 24 24                           N db 4 dup ('$')
+[  42]        :                                       
+[  43]    0462: 00 00                                 flag dw 0 ;flag to check if it's the beginning of the file
+[  44]    0464: 00 00                                 fend dw 0 ;flag to check if it's the end of the file
+[  45]        :                                       
+[  46]    0466: 00 00 00 00 00 00 00 00 00 00 00 00   str_with_text db 200 dup(?)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00             
+[  47]    052E: 00                                    str_with_text_len db ?
+[  48]    052F: 00                                    srt_with_text2 db ?
+[  49]        :                                       
+[  50]    0530: 24 24 24 24 24 24 24 24 24 24 24 24   program1 db 20 dup('$')
+                24 24 24 24 24 24 24 24             
+[  51]    0544: 24 24 24 24 24 24 24 24 24 24 24 24   program2 db 20 dup('$')
+                24 24 24 24 24 24 24 24             
+[  52]    0558: 24 24 24 24 24 24 24 24 24 24 24 24   program3 db 20 dup('$')
+                24 24 24 24 24 24 24 24             
+[  53]    056C: 00                                    program3_data db ?
+[  54]    056D: 00                                    length db ?
+[  55]        :                                       
+[  56]    056E: 24 24 24 24 24                        num db 5 dup('$')
+[  57]        :                                       
+[  58]    0573: 00 00                                 EPB dw 0000
+[  59]    0575: 00 00                                 cmd_off    dw ?
+[  60]    0577: 00 00                                 cmd_seg    dw ?
+[  61]    0579: 5C 00 00 00                           fcb_1    dw 005Ch,0
+[  62]    057D: 6C 00 00 00                           fcb_2 dw 006Ch,0
+[  63]        :                                       
+[  64]    0581: 00 65 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D   com_line db 0, 'e', 127 dup (0Dh)
+                0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 
+                0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 
+                0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 
+                0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 
+                0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 
+                0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 
+                0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 
+                0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 
+                0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 0D 
+                0D 0D 0D 0D 0D 0D 0D 0D 0D          
+[  65]        :                                       
+[  66]    0602:                                       dataLength = $ - errMsq1
+[  67]        :                                       
+[  68]        :                                       .code
+[  69]        :                                       ;macro to open a file
+[  70]        :                                       fopen macro
+[  71]        :                                       mov dx, offset path_to_file
+[  72]        :                                       mov ah, 3Dh ;open existing file with the path in dx
+[  73]        :                                       mov al, 00h ;access mode is set to 0 because we need only reading
+[  74]        :                                       int 21h ;open the file  7
+[  75]        :                                       mov bx, ax ;store file identificator from ax in bx, it will be used later
+[  76]        :                                       endm
+[  77]        :                                       
+[  78]        :                                       ;to avoid empty input in command line
+[  79]        :                                       check_if_empty macro str,is_zero
+[  80]        :                                       push si
+[  81]        :                                       mov si, offset str
+[  82]        :                                       call strlen ;use the procedure to count the length
+[  83]        :                                       pop si
+[  84]        :                                       cmp ax, 0
+[  85]        :                                       je is_zero  ;if the length is 0, it's an error
+[  86]        :                                       endm
+[  87]        :                                       
+[  88]        :                                       ;macro to print messages
+[  89]        :                                       print macro out_str
+[  90]        :                                       push ax
+[  91]        :                                       push dx
+[  92]        :                                       mov dx,offset out_str
+[  93]        :                                       mov ah,9
+[  94]        :                                       int 21h
+[  95]        :                                       pop dx
+[  96]        :                                       pop ax
+[  97]        :                                       endm
+[  98]        :                                       
+[  99]        :                                       
+[ 100]        :                                       ;macro to input string
+[ 101]        :                                       input_string macro str
+[ 102]        :                                       push bx
+[ 103]        :                                       push cx
+[ 104]        :                                       push dx
+[ 105]        :                                       
+[ 106]        :                                       again:     ; check empty word input
+[ 107]        :                                       mov ah, 0Ah ;function to input a string (not a symbol)
+[ 108]        :                                       mov dx,offset str
+[ 109]        :                                       int 21h
+[ 110]        :                                       
+[ 111]        :                                       mov ax,0
+[ 112]        :                                       mov cx,0
+[ 113]        :                                       mov cl, [word + 1] ;in [word+1] position the length is stored, we need to check if it's not 0
+[ 114]        :                                       cmp cl, 0 ; if str is empty restart input
+[ 115]        :                                       je again
+[ 116]        :                                       
+[ 117]        :                                       pop dx
+[ 118]        :                                       pop cx
+[ 119]        :                                       pop bx
+[ 120]        :                                       endm
+[ 121]        :                                       
+[ 122]        :                                       ;macro to output a number (we need to transform the number into a string)
+[ 123]        :                                       output_number macro
+[ 124]        :                                       local division
+[ 125]        :                                       local transfrom_and_output
+[ 126]        :                                       local exit
+[ 127]        :                                       ;the number of lines is stored in ax
+[ 128]        :                                       push ax
+[ 129]        :                                       push cx
+[ 130]        :                                       push -1; break condition
+[ 131]        :                                       mov cx, 10
+[ 132]        :                                       division:
+[ 133]        :                                       mov dx,0
+[ 134]        :                                       mov ah,0
+[ 135]        :                                       div cl; al - entire part, ah - remainder
+[ 136]        :                                       mov dl, ah ;save remainder to stack
+[ 137]        :                                       push dx ;save rests in stack
+[ 138]        :                                       cmp al, 0 ;continue until the entire part is 0
+[ 139]        :                                       jne division
+[ 140]        :                                       
+[ 141]        :                                       mov ah, 2 ;interrupt func to output a symbol
+[ 142]        :                                       
+[ 143]        :                                       transfrom_and_output: ;transformation to ascii
+[ 144]        :                                       pop dx ;remove one rest
+[ 145]        :                                       cmp dx, -1; if -1 break (it was our break condition)
+[ 146]        :                                       je exit ;if so, finish the process
+[ 147]        :                                       add dl, '0'; ascii code transformation
+[ 148]        :                                       int 21h ;output that symbol
+[ 149]        :                                       jmp transfrom_and_output
+[ 150]        :                                       exit:
+[ 151]        :                                       mov dl, ' '
+[ 152]        :                                       int 21h
+[ 153]        :                                       pop cx
+[ 154]        :                                       pop ax
+[ 155]        :                                       endm
+[ 156]        :                                       
+[ 157]        :                                       ;macro to close a file
+[ 158]        :                                       fclose macro
+[ 159]        :                                       mov ah, 3Eh; close file
+[ 160]        :                                       int 21h
+[ 161]        :                                       endm
+[ 162]        :                                       
+[ 163]    0610:                                       atoi proc
+[ 164]    0610: 60                                    pusha
+[ 165]    0611: 56                                    push si
+[ 166]        :                                       
+[ 167]    0612: 33 C9                                 xor cx, cx
+[ 168]    0614: B1 04                                 mov cl, 4
+[ 169]        :                                       
+[ 170]    0616:                                       CHECK_DIGIT:
+[ 171]    0616: 80 3C 24                              cmp [si], '$'
+[ 172]    0619: 74 1B                                 je EXIT_FROM_CYCLE
+[ 173]    061B: 80 3C 30                              cmp [si], '0'
+[ 174]    061E: 72 3A                                 jb ERROR_GET
+[ 175]    0620: 80 3C 39                              cmp [si], '9'
+[ 176]    0623: 77 35                                 ja ERROR_GET
+[ 177]    0625: 46                                    inc si
+[ 178]    0626: E2 EE                                 loop CHECK_DIGIT
+[ 179]    0628: 50 52 BA 5E 00 B4 09 CD 21 5A 58      print errMessage3
+[ 180]    0633: E8 5A 03                              call exit
+[ 181]        :                                       
+[ 182]    0636:                                       EXIT_FROM_CYCLE:
+[ 183]    0636: 80 F9 04                              cmp cl, 4
+[ 184]    0639: 74 1F                                 je ERROR_GET
+[ 185]    063B: 5E                                    pop si
+[ 186]    063C: 33 C0                                 xor ax, ax
+[ 187]    063E: 33 DB                                 xor bx, bx
+[ 188]    0640: B3 0A                                 mov bl, 10
+[ 189]    0642:                                       CONVERT:
+[ 190]    0642: 8A 0C                                 mov cl, [si]
+[ 191]    0644: 80 E9 30                              sub cl, '0'
+[ 192]    0647: F7 E3                                 mul bx
+[ 193]    0649: 72 0F                                 jc ERROR_GET
+[ 194]    064B: 02 C1                                 add al, cl
+[ 195]    064D: 74 0B                                 jz ERROR_GET
+[ 196]    064F: 46                                    inc si
+[ 197]    0650: 80 3C 24                              cmp [si], '$'
+[ 198]    0653: 75 ED                                 jne CONVERT
+[ 199]    0655: A2 5E 03                              mov [N], al
+[ 200]        :                                       
+[ 201]    0658: 61                                    popa
+[ 202]    0659: C3                                    ret
+[ 203]        :                                       
+[ 204]    065A:                                       ERROR_GET:
+[ 205]    065A: 50 52 BA 5E 00 B4 09 CD 21 5A 58      print errMessage3
+[ 206]    0665: E8 28 03                              call exit
+[ 207]        :                                       
+[ 208]        :                                       atoi endp
+[ 209]        :                                       
+[ 210]    0668:                                       get_parametr proc
+[ 211]    0668:                                       WRITE_CYCLE:
+[ 212]    0668: 26 8A 05                              mov al, es:[di]
+[ 213]    066B: 3C 00                                 cmp al, 0
+[ 214]    066D: 74 12                                 je END_OF_WRITE
+[ 215]    066F: 3C 20                                 cmp al, ' '
+[ 216]    0671: 74 0E                                 je END_OF_WRITE
+[ 217]    0673: 3C 09                                 cmp al, 9
+[ 218]    0675: 74 0A                                 je END_OF_WRITE
+[ 219]    0677: 3C 0D                                 cmp al, 0dh
+[ 220]    0679: 74 06                                 je END_OF_WRITE
+[ 221]    067B: 88 04                                 mov [si], al
+[ 222]    067D: 47                                    inc di
+[ 223]    067E: 46                                    inc si
+[ 224]    067F: EB E7                                 jmp WRITE_CYCLE
+[ 225]        :                                       
+[ 226]    0681:                                       END_OF_WRITE:
+[ 227]    0681: C3                                    ret
+[ 228]        :                                       get_parametr endp
+[ 229]        :                                       
+[ 230]    0682:                                       skip_spaces proc
+[ 231]    0682: 4F                                    dec di
+[ 232]    0683:                                       CYCLE:
+[ 233]    0683: 47                                    inc di
+[ 234]    0684: 26 80 3D 0D                           cmp es:[di], 0dh
+[ 235]    0688: 74 12                                 je END_OF_SKIPPING
+[ 236]    068A: 26 80 3D 00                           cmp es:[di], 0
+[ 237]    068E: 74 F3                                 je CYCLE
+[ 238]    0690: 26 80 3D 20                           cmp es:[di], ' '
+[ 239]    0694: 74 ED                                 je CYCLE
+[ 240]    0696: 26 80 3D 09                           cmp es:[di], 9
+[ 241]    069A: 74 E7                                 je CYCLE
+[ 242]    069C:                                       END_OF_SKIPPING:
+[ 243]    069C: C3                                    ret
+[ 244]        :                                       skip_spaces endp
+[ 245]        :                                       
+[ 246]    069D:                                       change_size proc
+[ 247]    069D: B4 4A                                 mov ah,4Ah
+[ 248]    069F: BB 00 00                              mov bx, ((codeLength / 16) + 1) + ((dataLength / 16) + 1) + 16 + 16 ;psp+stack+code+data
+[ 249]    06A2: CD 21                                 int 21h
+[ 250]    06A4: 72 01                                 jc MEMORY_ISSUES
+[ 251]    06A6: C3                                    ret
+[ 252]    06A7:                                       MEMORY_ISSUES:
+[ 253]    06A7: 3D 07 00                              cmp ax, 07
+[ 254]    06AA: 74 0A                                 je err1
+[ 255]    06AC: 3D 08 00                              cmp ax, 08
+[ 256]    06AF: 74 13                                 je err2
+[ 257]    06B1: 3D 09 00                              cmp ax, 09
+[ 258]    06B4: 74 0E                                 je err2
+[ 259]        :                                       
+[ 260]    06B6:                                       err1:
+[ 261]    06B6: 50 52 BA 09 00 B4 09 CD 21 5A 58      print err_msq1
+[ 262]    06C1: E8 CC 02                              call exit
+[ 263]    06C4:                                       err2:
+[ 264]    06C4: 50 52 BA 1D 00 B4 09 CD 21 5A 58      print err_msq2
+[ 265]    06CF: E8 BE 02                              call exit
+[ 266]    06D2:                                       err3:
+[ 267]    06D2: 50 52 BA 2F 00 B4 09 CD 21 5A 58      print err_msq3
+[ 268]    06DD: E8 B0 02                              call exit
+[ 269]        :                                       change_size endp
+[ 270]        :                                       
+[ 271]    06E0:                                       run_exe proc
+[ 272]    06E0: B8 10 00                              mov ax, @data
+[ 273]    06E3: 8E C0                                 mov es, ax
+[ 274]        :                                       
+[ 275]    06E5: A0 6E 04                              mov al, num
+[ 276]    06E8: 3C 31                                 cmp al,'1'
+[ 277]    06EA: 74 0B                                 je run_1
+[ 278]    06EC: 3C 32                                 cmp al,'2'
+[ 279]    06EE: 74 0C                                 je run_2
+[ 280]    06F0: 3C 33                                 cmp al,'3'
+[ 281]    06F2: 74 0D                                 je run_3
+[ 282]    06F4: E8 99 02                              call exit
+[ 283]        :                                       
+[ 284]    06F7:                                       run_1:
+[ 285]    06F7: BA 30 04                              lea dx, program1
+[ 286]    06FA: EB 08                                 jmp run_program
+[ 287]        :                                       
+[ 288]    06FC:                                       run_2:
+[ 289]    06FC: BA 44 04                              lea dx, program2
+[ 290]    06FF: EB 03                                 jmp run_program
+[ 291]        :                                       
+[ 292]    0701:                                       run_3:
+[ 293]    0701: BA 58 04                              lea dx, program3
+[ 294]        :                                       
+[ 295]    0704:                                       run_program:
+[ 296]        :                                       
+[ 297]    0704: B8 00 4B                              mov ax, 4b00h
+[ 298]        :                                       
+[ 299]    0707: BB 73 04                              mov bx, offset epb
+[ 300]    070A: CD 21                                 int 21h
+[ 301]    070C: 72 01                                 jc ERROR
+[ 302]    070E: C3                                    ret
+[ 303]    070F:                                       ERROR:
+[ 304]    070F: 3D 02 00                              cmp ax, 02h
+[ 305]    0712: 75 0E                                 jne error_1
+[ 306]    0714: 50 52 BA A2 00 B4 09 CD 21 5A 58      print runError0
+[ 307]    071F: E8 6E 02                              call exit
+[ 308]        :                                       
+[ 309]    0722:                                       error_1:
+[ 310]    0722: 3D 05 00                              cmp ax, 05h
+[ 311]    0725: 75 0E                                 jne error_2
+[ 312]    0727: 50 52 BA B7 00 B4 09 CD 21 5A 58      print runError1
+[ 313]    0732: E8 5B 02                              call exit
+[ 314]        :                                       
+[ 315]    0735:                                       error_2:
+[ 316]    0735: 3D 08 00                              cmp ax, 08h
+[ 317]    0738: 75 0E                                 jne error_3
+[ 318]    073A: 50 52 BA C8 00 B4 09 CD 21 5A 58      print runError2
+[ 319]    0745: E8 48 02                              call exit
+[ 320]        :                                       
+[ 321]    0748:                                       error_3:
+[ 322]    0748: 3D 0B 00                              cmp ax, 0Bh
+[ 323]    074B: 75 0E                                 jne error_n
+[ 324]    074D: 50 52 BA DD 00 B4 09 CD 21 5A 58      print runError3
+[ 325]    0758: E8 35 02                              call exit
+[ 326]        :                                       
+[ 327]    075B:                                       error_n:
+[ 328]    075B: 50 52 BA 40 00 B4 09 CD 21 5A 58      print errMessage1
+[ 329]    0766: E8 27 02                              call exit
+[ 330]        :                                       run_exe endp
+[ 331]        :                                       
+[ 332]        :                                       ;procedure that checks that the path is correct
+[ 333]    0769:                                       parse_cmdline_text proc
+[ 334]    0769: 53                                    push bx
+[ 335]    076A: 51                                    push cx
+[ 336]    076B: 52                                    push dx
+[ 337]        :                                       
+[ 338]    076C: 8A 0E 02 01                           mov cl, cmdline_input_length ;the length of cmdline text is in cl now, it will be used for a loop
+[ 339]    0770: B5 00                                 mov ch,0
+[ 340]        :                                       
+[ 341]    0772: BE 82 01                              mov si, offset cmd_file_path; cmdline text offset to source
+[ 342]    0775: BF 01 02                              mov di, offset path_to_file ; parsing path offset to data
+[ 343]    0778: BB 00 00                              mov bx, 0000;
+[ 344]    077B: E8 0D 00                              call to_asciiz ;transmit it to path
+[ 345]        :                                       
+[ 346]    077E:                                       good_cmd_args:
+[ 347]    077E: B8 00 00                              mov ax, 0 ;save 0 to ax if everything is okay
+[ 348]    0781: FE CB                                 dec bl
+[ 349]    0783: 88 1E 80 02                           mov path_to_file_length, bl ; save length of path
+[ 350]        :                                       
+[ 351]    0787:                                       end_parse_cmd_text:
+[ 352]    0787: 5B                                    pop bx
+[ 353]    0788: 59                                    pop cx
+[ 354]    0789: 5B                                    pop bx
+[ 355]    078A: C3                                    ret
+[ 356]        :                                       parse_cmdline_text endp
+[ 357]        :                                       
+[ 358]        :                                       ;procedure to transmit text from cmdline to variable path
+[ 359]    078B:                                       to_asciiz proc
+[ 360]    078B: 50                                    push ax
+[ 361]    078C: 51                                    push cx
+[ 362]    078D: 57                                    push di
+[ 363]        :                                       
+[ 364]    078E:                                       parse_to_asciiz:
+[ 365]    078E: FE C3                                 inc bl
+[ 366]    0790: 3E 8A 04                              mov al, ds:[si] ;save to al a symbol from data segment starting with cmdline_text position
+[ 367]        :                                       ;check if it's a delimiter
+[ 368]    0793: 3C 20                                 cmp al, ' ' ;space
+[ 369]    0795: 74 1B                                 je is_delimiter
+[ 370]    0797: 3C 0D                                 cmp al, 0Dh ;cret
+[ 371]    0799: 74 17                                 je is_delimiter
+[ 372]    079B: 3C 09                                 cmp al, 09h ;tabulation
+[ 373]    079D: 74 13                                 je is_delimiter
+[ 374]    079F: 3C 0A                                 cmp al, 0Ah ;new line
+[ 375]    07A1: 74 0F                                 je is_delimiter
+[ 376]    07A3: 3C 00                                 cmp al, 00h ;nothing
+[ 377]    07A5: 74 0B                                 je is_delimiter
+[ 378]    07A7: 3C 24                                 cmp al, '$' ;end
+[ 379]    07A9: 74 07                                 je is_delimiter
+[ 380]        :                                       
+[ 381]    07AB: 26 88 05                              mov es:[di], al; write symbol to additional data segment, where path variable is situated
+[ 382]    07AE: 47                                    inc di ;increment indexes and restart the process
+[ 383]    07AF: 46                                    inc si
+[ 384]    07B0: E2 DC                                 loop parse_to_asciiz
+[ 385]        :                                       
+[ 386]    07B2:                                       is_delimiter: ;it's the end of the parse
+[ 387]    07B2: B0 00                                 mov al, 00h
+[ 388]    07B4: 26 88 05                              mov es:[di], al
+[ 389]    07B7: B0 24                                 mov al, '$'
+[ 390]    07B9: 47                                    inc di
+[ 391]    07BA: 26 88 05                              mov es:[di], al
+[ 392]    07BD: 46                                    inc si
+[ 393]        :                                       
+[ 394]    07BE: 5F                                    pop di
+[ 395]    07BF: 59                                    pop cx
+[ 396]    07C0: 58                                    pop ax
+[ 397]    07C1: C3                                    ret
+[ 398]        :                                       to_asciiz endp
+[ 399]        :                                       
+[ 400]        :                                       ;procedure to determine the length of the line
+[ 401]    07C2:                                       strlen proc
+[ 402]    07C2: 53                                    push bx
+[ 403]    07C3: 56                                    push si
+[ 404]    07C4: B8 00 00                              mov ax,0 ;length will be stored in ax
+[ 405]    07C7:                                       count_strlen:
+[ 406]    07C7: 3E 8A 1C                              mov bl, ds:[si] ;pull symbols from the cmdline text until it's null
+[ 407]    07CA: 80 FB 00                              cmp bl, 00h
+[ 408]    07CD: 74 04                                 je end_strlen
+[ 409]    07CF: 46                                    inc si
+[ 410]    07D0: 40                                    inc ax ;increment counter
+[ 411]    07D1: EB F4                                 jmp count_strlen
+[ 412]    07D3:                                       end_strlen:
+[ 413]    07D3: 5E                                    pop si
+[ 414]    07D4: 5B                                    pop bx
+[ 415]    07D5: C3                                    ret
+[ 416]        :                                       strlen endp
+[ 417]        :                                       
+[ 418]    07D6:                                       progrmMain:
+[ 419]        :                                       
+[ 420]    07D6: BA 00 00                              mov dx,0 ;start value is set to 0
+[ 421]    07D9: B4 00                                 mov ah, 0
+[ 422]    07DB: A0 80 02                              mov al, [path_to_file_length] ;get length of path
+[ 423]        :                                       
+[ 424]    07DE:                                       find_num_of_str:
+[ 425]        :                                       
+[ 426]    07DE: BF 03 01                              mov di, offset cmdline_text
+[ 427]        :                                       ;mov di, offset str_to_find
+[ 428]    07E1: 03 F8                                 add di, ax
+[ 429]    07E3: 47                                    inc di; start of firtst substr
+[ 430]    07E4: BB 00 00                              mov bx, 0000
+[ 431]        :                                       
+[ 432]    07E7: FE C3                                 inc bl
+[ 433]    07E9: 8A 05                                 mov al, [di]
+[ 434]    07EB: A2 6E 04                              mov num, al
+[ 435]    07EE: 47                                    inc di
+[ 436]    07EF: E8 90 FE                              call skip_spaces
+[ 437]    07F2: BE 5E 03                              lea si, N
+[ 438]    07F5: E8 70 FE                              call get_parametr
+[ 439]    07F8: BE 5E 03                              lea si, N
+[ 440]    07FB: E8 12 FE                              call atoi
+[ 441]        :                                       
+[ 442]    07FE: A0 5E 03                              mov al, N
+[ 443]    0801: A0 6E 04                              mov al, num
+[ 444]        :                                       
+[ 445]    0804: 3C 31                                 cmp al, '1'
+[ 446]    0806: 74 0B                                 je read_text_from_file
+[ 447]    0808: 3C 32                                 cmp al, '2'
+[ 448]    080A: 74 07                                 je read_text_from_file
+[ 449]    080C: 3C 33                                 cmp al, '3'
+[ 450]    080E: 74 03                                 je read_text_from_file
+[ 451]    0810: E8 BA 02                              call exit_with_error_cmd
+[ 452]        :                                       
+[ 453]    0813:                                       read_text_from_file:
+[ 454]        :                                       
+[ 455]    0813: BA 01 02 B4 3D B0 00 CD 21 8B D8      fopen
+[ 456]    081E: 50                                    push ax
+[ 457]        :                                       
+[ 458]        :                                       ;read str from file:
+[ 459]    081F: B4 3F                                 mov ah, 3Fh
+[ 460]    0821: 5B                                    pop bx
+[ 461]    0822: BA 66 03                              mov dx, offset str_with_text
+[ 462]    0825: B9 28 00                              mov cx, 40
+[ 463]    0828: CD 21                                 int 21h
+[ 464]    082A: 8B C8                                 mov cx, ax
+[ 465]    082C: 88 0E 2E 04                           mov str_with_text_len, cl
+[ 466]        :                                       
+[ 467]        :                                       ;add $ to text from file
+[ 468]    0830: BF 66 03                              mov di, offset str_with_text
+[ 469]    0833: B7 00                                 mov bh, 0
+[ 470]    0835: 8A 1E 2E 04                           mov bl, str_with_text_len
+[ 471]    0839: C6 41 FF 0D                           mov byte ptr [di + bx - 1], 0Dh
+[ 472]    083D: C6 01 24                              mov byte ptr [di + bx], '$'
+[ 473]        :                                       
+[ 474]    0840: B4 3E CD 21                           fclose
+[ 475]        :                                       
+[ 476]    0844: BE 66 03                              mov si, offset str_with_text
+[ 477]        :                                       
+[ 478]    0847: A0 6E 04                              mov al, num
+[ 479]    084A: 3C 31                                 cmp al, '1'
+[ 480]    084C: 74 0E                                 je first_str
+[ 481]    084E: 3C 32                                 cmp al, '2'
+[ 482]    0850: 74 5B                                 je second_str
+[ 483]    0852: 3C 33                                 cmp al, '3'
+[ 484]    0854: 75 03 E9 B4 00                        je third_str
+[ 485]    0859: E8 71 02                              call exit_with_error_cmd
+[ 486]        :                                       
+[ 487]    085C:                                       first_str:
+[ 488]        :                                       
+[ 489]    085C: C6 06 6D 04 00                        mov length, 0
+[ 490]    0861: 8A 0E 6D 04                           mov cl, length
+[ 491]        :                                       
+[ 492]    0865:                                       read_by_bytes1:
+[ 493]        :                                       
+[ 494]    0865: 8B 04                                 mov ax, [si]
+[ 495]    0867: 80 3C 0D                              cmp [si], 0Dh
+[ 496]    086A: 74 16                                 je repeat_program1
+[ 497]    086C: 80 3C 20                              cmp [si], ' '
+[ 498]    086F: 74 11                                 je repeat_program1
+[ 499]    0871: 80 3C 24                              cmp [si],'$'
+[ 500]    0874: 75 03 E9 17 01                        je exit
+[ 501]        :                                       
+[ 502]    0879: 46                                    inc si
+[ 503]    087A: FE C1                                 inc cl
+[ 504]    087C: 88 0E 6D 04                           mov length, cl
+[ 505]    0880: EB E3                                 jmp read_by_bytes1
+[ 506]        :                                       
+[ 507]    0882:                                       repeat_program1:
+[ 508]        :                                       
+[ 509]    0882: 2B F1                                 sub si, cx
+[ 510]    0884: 8B 04                                 mov ax, [si]
+[ 511]        :                                       
+[ 512]    0886: BF 30 04                              lea di, [program1]
+[ 513]    0889: F3 A4                                 rep movsb
+[ 514]        :                                       
+[ 515]    088B: BE 30 04                              mov si, offset program1
+[ 516]    088E: 03 F1                                 add si, cx
+[ 517]    0890: BE 00 00                              mov si, 0 ;add $ to end of file
+[ 518]        :                                       
+[ 519]    0893: 50 52 BA 30 04 B4 09 CD 21 5A 58      print program1
+[ 520]        :                                       
+[ 521]    089E: E8 FC FD                              call change_size
+[ 522]        :                                       
+[ 523]    08A1: 8A 0E 5E 03                           mov cl, byte ptr[N]
+[ 524]        :                                       
+[ 525]    08A5:                                       RUN_EXE_CYCLE:
+[ 526]    08A5: E8 38 FE                              call run_exe
+[ 527]    08A8: E2 FB                                 loop RUN_EXE_CYCLE
+[ 528]        :                                       
+[ 529]    08AA: E8 E3 00                              call exit
+[ 530]        :                                       
+[ 531]        :                                       ;/////////////////////////////////////////////////////////////////////////
+[ 532]        :                                       
+[ 533]    08AD:                                       second_str:
+[ 534]        :                                       
+[ 535]    08AD: C6 06 6D 04 00                        mov length, 0
+[ 536]    08B2: 8A 0E 6D 04                           mov cl, length
+[ 537]        :                                       
+[ 538]    08B6:                                       read_by_bytes2:
+[ 539]        :                                       
+[ 540]    08B6: 80 3C 0D                              cmp [si],0Dh
+[ 541]    08B9: 74 16                                 je right_str
+[ 542]    08BB: 80 3C 20                              cmp [si],' '
+[ 543]    08BE: 74 11                                 je right_str
+[ 544]    08C0: 80 3C 24                              cmp [si],'$'
+[ 545]    08C3: 75 03 E9 C8 00                        je exit
+[ 546]    08C8: 46                                    inc si
+[ 547]        :                                       
+[ 548]    08C9: FE C1                                 inc cl
+[ 549]    08CB: 88 0E 6D 04                           mov length, cl
+[ 550]    08CF: EB E5                                 jmp read_by_bytes2
+[ 551]        :                                       
+[ 552]    08D1:                                       right_str:
+[ 553]    08D1: 46                                    inc si;
+[ 554]        :                                       
+[ 555]    08D2: C6 06 6D 04 00                        mov length, 0
+[ 556]    08D7: 8A 0E 6D 04                           mov cl, length
+[ 557]        :                                       
+[ 558]    08DB:                                       read_by_bytes22:
+[ 559]        :                                       
+[ 560]    08DB: 80 3C 0D                              cmp [si],0Dh
+[ 561]    08DE: 74 11                                 je repeat_program2
+[ 562]    08E0: 80 3C 24                              cmp [si],'$'
+[ 563]    08E3: 75 03 E9 A8 00                        je exit
+[ 564]    08E8: FE C1                                 inc cl
+[ 565]    08EA: 46                                    inc si
+[ 566]    08EB: 88 0E 6D 04                           mov length, cl
+[ 567]        :                                       
+[ 568]    08EF: EB EA                                 jmp read_by_bytes22
+[ 569]        :                                       
+[ 570]    08F1:                                       repeat_program2:
+[ 571]        :                                       
+[ 572]    08F1: 2B F1                                 sub si, cx
+[ 573]    08F3: 8B 04                                 mov ax, [si]
+[ 574]        :                                       
+[ 575]    08F5: BF 44 04                              lea di, [program2]
+[ 576]    08F8: F3 A4                                 rep movsb
+[ 577]        :                                       
+[ 578]    08FA: BE 44 04                              mov si, offset program2
+[ 579]    08FD: 03 F1                                 add si, cx
+[ 580]    08FF: BE 00 00                              mov si, 0 ;add $ to end of file
+[ 581]        :                                       
+[ 582]    0902: 50 52 BA 44 04 B4 09 CD 21 5A 58      print program2
+[ 583]        :                                       
+[ 584]        :                                       ;////////////////////////////////////////////////////////////
+[ 585]        :                                       
+[ 586]    090D:                                       third_str:
+[ 587]        :                                       
+[ 588]    090D: C6 06 6D 04 00                        mov length,0; num of str
+[ 589]    0912: 33 C9                                 xor cx, cx
+[ 590]        :                                       
+[ 591]    0914:                                       second_round:
+[ 592]        :                                       
+[ 593]    0914: FE 06 6D 04                           inc length
+[ 594]    0918: 46                                    inc si
+[ 595]        :                                       
+[ 596]    0919:                                       read_by_bytes3:
+[ 597]        :                                       
+[ 598]    0919: 80 3C 0D                              cmp [si],0Dh
+[ 599]    091C: 74 0A                                 je right_str2
+[ 600]    091E: 80 3C 24                              cmp [si],'$'
+[ 601]    0921: 74 6D                                 je exit
+[ 602]        :                                       
+[ 603]    0923: FE C1                                 inc cl
+[ 604]    0925: 46                                    inc si
+[ 605]    0926: EB F1                                 jmp read_by_bytes3
+[ 606]        :                                       
+[ 607]    0928:                                       right_str2:
+[ 608]        :                                       
+[ 609]    0928: 80 3E 6D 04 01                        cmp length, 1
+[ 610]    092D: 74 E5                                 je second_round
+[ 611]        :                                       
+[ 612]    092F: FE 06 6D 04                           inc length
+[ 613]    0933: 46                                    inc si
+[ 614]    0934: 33 C9                                 xor cx,cx
+[ 615]        :                                       
+[ 616]    0936:                                       read_by_bytes32:
+[ 617]        :                                       
+[ 618]    0936: 80 3C 20                              cmp [si],' '
+[ 619]    0939: 74 13                                 je repeat_program3
+[ 620]    093B: 80 3C 24                              cmp [si],'$'
+[ 621]    093E: 74 50                                 je exit
+[ 622]    0940: 80 3C 0D                              cmp [si],0Dh
+[ 623]    0943: 74 4B                                 je exit
+[ 624]    0945: FE C1                                 inc cl
+[ 625]    0947: 46                                    inc si
+[ 626]    0948: 88 0E 6D 04                           mov length, cl
+[ 627]    094C: EB E8                                 jmp read_by_bytes32
+[ 628]        :                                       
+[ 629]    094E:                                       repeat_program3:
+[ 630]        :                                       
+[ 631]        :                                       ;get data:
+[ 632]    094E: 51                                    push cx
+[ 633]    094F: 56                                    push si
+[ 634]    0950: 8B 04                                 mov ax, [si]
+[ 635]    0952: 46                                    inc si
+[ 636]    0953: 8B 04                                 mov ax, [si]
+[ 637]        :                                       
+[ 638]    0955: BF 6C 04                              lea di, [program3_data]
+[ 639]    0958: B9 01 00                              mov cx,1
+[ 640]    095B: A4                                    movsb
+[ 641]        :                                       
+[ 642]    095C: 46                                    inc si
+[ 643]    095D: 8B 04                                 mov ax, [si]
+[ 644]    095F: BE 24 00                              mov si, '$'
+[ 645]    0962: 47                                    inc di
+[ 646]    0963: A4                                    movsb
+[ 647]        :                                       
+[ 648]    0964:                                       save_name_of_program3:
+[ 649]        :                                       
+[ 650]    0964: 4E                                    dec si
+[ 651]    0965: 4E                                    dec si
+[ 652]    0966: 4E                                    dec si
+[ 653]    0967: 5E                                    pop si
+[ 654]        :                                       
+[ 655]    0968: 59                                    pop cx
+[ 656]        :                                       
+[ 657]    0969: 2B F1                                 sub si, cx
+[ 658]    096B: 8B 04                                 mov ax, [si]
+[ 659]        :                                       
+[ 660]    096D: BF 58 04                              lea di, [program3]
+[ 661]    0970: F3 A4                                 rep movsb
+[ 662]        :                                       
+[ 663]    0972: BE 58 04                              mov si, offset program3
+[ 664]    0975: 03 F1                                 add si, cx
+[ 665]    0977: BE 00 00                              mov si, 0 ;add $ to end of file
+[ 666]        :                                       
+[ 667]    097A: 50 52 BA 58 04 B4 09 CD 21 5A 58      print program3
+[ 668]        :                                       
+[ 669]    0985: 50 52 BA 6C 04 B4 09 CD 21 5A 58      print program3_data
+[ 670]        :                                       
+[ 671]    0990:                                       get_data:
+[ 672]        :                                       
+[ 673]        :                                       ;do:
+[ 674]        :                                       ;if num == 1: get name.exe => repeat k times
+[ 675]        :                                       ;if num == 2: get name.exe => repeat k times and do input
+[ 676]        :                                       ;if num == 3: get name.exe SPACE number
+[ 677]        :                                       
+[ 678]        :                                       ;else bye bitch
+[ 679]        :                                       
+[ 680]        :                                       
+[ 681]    0990:                                       exit:
+[ 682]        :                                       
+[ 683]    0990: B8 00 4C                              mov ax,4C00h
+[ 684]    0993: CD 21                                 int 21h
+[ 685]        :                                       
+[ 686]    0995:                                       start:
+[ 687]    0995: B8 10 00                              mov ax, @data   ;the beginning of data in our program
+[ 688]    0998: 8E C0                                 mov es, ax      ;mov it to additional data segment
+[ 689]    099A: B5 00                                 mov ch,0
+[ 690]    099C: 3E 8A 0E 80 00                        mov cl, ds:[80h];command line and DTA area are situated at 80h offset
+[ 691]        :                                       ;in cl the cmdline text length is stored now
+[ 692]    09A1: 88 0E 02 01                           mov cmdline_input_length, cl ;move it to the variable
+[ 693]    09A5: BE 82 00                              mov si, 82h         ;82 because first symbol is situated at this adress
+[ 694]        :                                       ;81h - space or tabulation
+[ 695]    09A8: BF 03 01                              mov di, offset cmdline_text
+[ 696]    09AB: F3 A4                                 rep movsb  ;text from command line to variable cmd_text
+[ 697]    09AD: 8E D8                                 mov ds, ax
+[ 698]        :                                       
+[ 699]    09AF: BB 81 04                              mov bx, offset com_line
+[ 700]    09B2: 89 1E 75 04                           mov cmd_off, bx
+[ 701]    09B6: 8C D8                                 mov ax, ds
+[ 702]    09B8: A3 77 04                              mov cmd_seg, ax
+[ 703]        :                                       
+[ 704]    09BB: 33 DB                                 xor bx, bx
+[ 705]        :                                       
+[ 706]    09BD: BE 03 01                              mov si, offset cmdline_text ;all text from command line
+[ 707]    09C0: BF 82 01                              mov di, offset cmd_file_path ;path to file
+[ 708]    09C3: B9 00 00                              mov cx,0
+[ 709]        :                                       
+[ 710]    09C6:                                       copy_loop: ;copy text from command line to path
+[ 711]    09C6: 8A 04                                 mov al, [si]
+[ 712]    09C8: 3C 0D                                 cmp al, 0Dh ;if we meet space, we reached the path's end
+[ 713]    09CA: 74 10                                 je finish
+[ 714]    09CC: 3C 24                                 cmp al,'$' ;if this symbol has been met, user didn't input any word, it's an error
+[ 715]    09CE: 75 03 E9 20 01                        je no_word
+[ 716]    09D3: 88 05                                 mov [di], al
+[ 717]    09D5: 46                                    inc si
+[ 718]    09D6: 47                                    inc di
+[ 719]    09D7: FE C3                                 inc bl
+[ 720]    09D9: 41                                    inc cx
+[ 721]    09DA: EB EA                                 jmp copy_loop
+[ 722]        :                                       
+[ 723]    09DC:                                       finish:
+[ 724]    09DC: 80 FB 32                              cmp bl,50 ;check if length is less than 50
+[ 725]    09DF: 7E 03 E9 FC 00                        jg long_word
+[ 726]        :                                       
+[ 727]    09E4: E8 82 FD                              call parse_cmdline_text ;transform text from cmdline to ascii code
+[ 728]    09E7: 85 C0                                 test ax, ax ;check if ax is 0, if not, there were problems
+[ 729]    09E9: 74 03 E9 CC 00                        jne exit2
+[ 730]    09EE: 50 52 BA 01 02 B4 09 CD 21 5A 58      print path_to_file
+[ 731]        :                                       
+[ 732]    09F9: BA 01 02 B4 3D B0 00 CD 21 8B D8      fopen
+[ 733]        :                                       
+[ 734]    0A04: 50 52 BA 06 00 B4 09 CD 21 5A 58      print EntryMsqStr
+[ 735]    0A0F: 72 03                                 jc checking:
+[ 736]    0A11: E9 98 00                              jmp OKey
+[ 737]    0A14:                                       checking:
+[ 738]    0A14: 3D 02 00                              cmp ax, 02h
+[ 739]    0A17: 74 16                                 je exit1_Bitch
+[ 740]    0A19: 3D 03 00                              cmp ax, 03h
+[ 741]    0A1C: 74 2A                                 je exit2_Bitch
+[ 742]    0A1E: 3D 04 00                              cmp ax, 04h
+[ 743]    0A21: 74 3E                                 je exit3_Bitch
+[ 744]    0A23: 3D 05 00                              cmp ax, 05h
+[ 745]    0A26: 74 52                                 je exit4_Bitch
+[ 746]    0A28: 3D 0C 00                              cmp ax, 0Ch
+[ 747]    0A2B: 74 66                                 je exit5_Bitch
+[ 748]    0A2D: EB 7D                                 jmp OKey
+[ 749]        :                                       
+[ 750]    0A2F:                                       exit1_Bitch:
+[ 751]    0A2F: 50 52 BA 00 00 B4 09 CD 21 5A 58      print errMsq1
+[ 752]    0A3A: 50 52 BA A2 00 B4 09 CD 21 5A 58      print runError0
+[ 753]    0A45: E8 48 FF                              call exit
+[ 754]        :                                       
+[ 755]    0A48:                                       exit2_Bitch:
+[ 756]    0A48: 50 52 BA 00 00 B4 09 CD 21 5A 58      print errMsq1
+[ 757]    0A53: 50 52 BA ED 00 B4 09 CD 21 5A 58      print runError4
+[ 758]    0A5E: E8 2F FF                              call exit
+[ 759]        :                                       
+[ 760]    0A61:                                       exit3_Bitch:
+[ 761]    0A61: 50 52 BA 00 00 B4 09 CD 21 5A 58      print errMsq1
+[ 762]    0A6C: 50 52 BA C8 00 B4 09 CD 21 5A 58      print runError2
+[ 763]    0A77: E8 16 FF                              call exit
+[ 764]        :                                       
+[ 765]    0A7A:                                       exit4_Bitch:
+[ 766]    0A7A: 50 52 BA 00 00 B4 09 CD 21 5A 58      print errMsq1
+[ 767]    0A85: 50 52 BA B7 00 B4 09 CD 21 5A 58      print runError1
+[ 768]    0A90: E8 FD FE                              call exit
+[ 769]        :                                       
+[ 770]    0A93:                                       exit5_Bitch:
+[ 771]    0A93: 50 52 BA 00 00 B4 09 CD 21 5A 58      print errMsq1
+[ 772]    0A9E: 50 52 BA DD 00 B4 09 CD 21 5A 58      print runError3
+[ 773]    0AA9: E8 E4 FE                              call exit
+[ 774]        :                                       
+[ 775]    0AAC:                                       OKey:
+[ 776]        :                                       
+[ 777]    0AAC: 50 52 BA 06 00 B4 09 CD 21 5A 58      print EntryMsqStr
+[ 778]        :                                       ;print msg_amount_of_strings ;print prompt
+[ 779]    0AB7: E9 1C FD                              jmp progrmMain ;count rows containing this word
+[ 780]        :                                       
+[ 781]    0ABA:                                       count_rows_end: ;we can be here if we had problems
+[ 782]        :                                       
+[ 783]    0ABA:                                       exit2:
+[ 784]    0ABA: 50 52 BA F1 02 B4 09 CD 21 5A 58      print msg_error ;print error message
+[ 785]    0AC5: 5A                                    pop dx
+[ 786]    0AC6: 59                                    pop cx
+[ 787]    0AC7: 58                                    pop ax
+[ 788]    0AC8: B8 00 4C                              mov ax, 4c00h ;finish the program
+[ 789]    0ACB: CD 21                                 int 21h
+[ 790]        :                                       
+[ 791]    0ACD:                                       exit_with_error_cmd:
+[ 792]    0ACD: 50 52 BA FB 02 B4 09 CD 21 5A 58      print msg_error_of_cmd ;print error message
+[ 793]    0AD8: 5A                                    pop dx
+[ 794]    0AD9: 59                                    pop cx
+[ 795]    0ADA: 58                                    pop ax
+[ 796]    0ADB: B8 00 4C                              mov ax, 4c00h ;finish the program
+[ 797]    0ADE: CD 21                                 int 21h
+[ 798]        :                                       
+[ 799]    0AE0:                                       long_word:
+[ 800]    0AE0: 50 52 BA 1E 03 B4 09 CD 21 5A 58      print msg_warning_wordlength
+[ 801]    0AEB: 5A                                    pop dx
+[ 802]    0AEC: 59                                    pop cx
+[ 803]    0AED: 58                                    pop ax
+[ 804]    0AEE: B8 00 4C                              mov ax, 4c00h ;finish the program
+[ 805]    0AF1: CD 21                                 int 21h
+[ 806]    0AF3:                                       no_word:
+[ 807]    0AF3: 50 52 BA 3F 03 B4 09 CD 21 5A 58      print msg_no_word_error
+[ 808]    0AFE: 5A                                    pop dx
+[ 809]    0AFF: 59                                    pop cx
+[ 810]    0B00: 58                                    pop ax
+[ 811]    0B01: B8 00 4C                              mov ax, 4c00h ;finish the program
+[ 812]    0B04: CD 21                                 int 21h
+[ 813]    0B06:                                       good_exit:
+[ 814]    0B06: B4 3E CD 21                           fclose
+[ 815]    0B0A: 59                                    pop cx
+[ 816]    0B0B: 58                                    pop ax
+[ 817]    0B0C: 8B C2                                 mov ax, dx      ;move the amount of rows in ax
+[ 818]    0B0E: 50 51 6A FF B9 0A 00 BA 00 00 B4 00   output_number   ;output transforming to ascii
+                F6 F1 8A D4 52 3C 00 75 F2 B4 02 5A 
+                83 FA FF 74 07 80 C2 30 CD 21 EB F3 
+                B2 20 CD 21 59 58                   
+[ 819]    0B38: B8 00 4C                              mov ax, 4c00h ;finish the program
+[ 820]    0B3B: CD 21                                 int 21h
+[ 821]        :                                       
+[ 822]    0B3D:                                       codeLength = $ - begin
+[ 823]        :                                       end start
+[ 824]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: 3D      -   bytes on last page (l.byte)
+0003: 01      -   bytes on last page (h.byte)
+0004: 07      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 02      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 01      -   SP - stack pointer (h.byte)
+0012: D9      -   check sum (l.byte)
+0013: 36      -   check sum (h.byte)
+0014: 85      -   IP - instruction pointer (l.byte)
+0015: 03      -   IP - instruction pointer (h.byte)
+0016: 61      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: D1      -   relocation table - offset inside segment (l.byte)
+001F: 00      -   relocation table - offset inside segment (h.byte)
+0020: 61      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022: 86      -   relocation table - offset inside segment (l.byte)
+0023: 03      -   relocation table - offset inside segment (h.byte)
+0024: 61      -   relocation table - segment anchor (l.byte)
+0025: 00      -   relocation table - segment anchor (h.byte)
+0026 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================

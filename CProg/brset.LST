@@ -1,0 +1,30 @@
+  ADDR B1 B2 B3 B4 D:\Uni\CProg\brset.asm                           PAGE       1
+
+                           org $8000
+  8000 86 55               ldaa #$55
+  8002 97 FF               staa $00ff
+  8004 CE 00 FF            ldx #$00ff
+  8007 18 CE 00 07         ldy #$7
+
+                   loop:
+  800B 97 FF               staa $00ff
+  800D 1F 00 80 0A         BRCLR 0,x,%10000000,bit_set
+  8011 C6 FF               ldab #$FF
+  8013 18 E7 00            stab 0,y
+  8016 18 09               dey
+  8018 48                  lsla
+  8019 26 F0               bne loop
+
+                   bit_set:
+
+  801B C6 00               ldab #0
+  801D 18 E7 00            stab 0,y
+  8020 18 09               dey
+  8022 48                  lsla
+
+  8023 26 E6               bne loop
+
+  Symbol Table 
+
+  BIT_SET            801B
+  LOOP               800B

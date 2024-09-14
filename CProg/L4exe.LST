@@ -1,0 +1,40 @@
+  ADDR B1 B2 B3 B4 D:\Uni\CProg\L4exe.asm                           PAGE       1
+
+                   .model small   ; Memory model for EXE
+E                         ^ Unknown instruction or directive.
+                   .stack 100h    ; Stack segment size of 256 bytes
+E                         ^ Unexpected character in instruction or directive.
+                   .data          ; Data segment
+E                                 ^ Unexpected character in instruction or
+.                                   directive.
+                   message db "Hello World!", 0Dh, 0Ah, '$'
+E                             ^ The value of this expression must fit in 8 bits.
+
+                   .code          ; Code segment
+E                                 ^ Unexpected character in instruction or
+.                                   directive.
+                   start:
+                       mov ax, @data    ; Load the data segment address
+E                      ^ Unknown instruction or directive.
+                       mov ds, ax       ; Set DS to the data segment
+E                      ^ Unknown instruction or directive.
+
+                       mov dx, offset message  ; Load offset of message into DX
+E                      ^ Unknown instruction or directive.
+                       mov ah, 09h             ; Print function is 9
+E                      ^ Unknown instruction or directive.
+                       int 21h                 ; DOS function for printing a
+.                  string
+E                      ^ Unknown instruction or directive.
+
+                       mov ax, 0   ; DOS function to terminate the program
+E                      ^ Unknown instruction or directive.
+                       int 16h
+E                      ^ Unknown instruction or directive.
+
+                   end start
+E                      ^ Unknown instruction or directive.
+
+  Symbol Table 
+
+  START              C000

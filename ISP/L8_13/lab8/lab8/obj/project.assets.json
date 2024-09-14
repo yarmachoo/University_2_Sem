@@ -1,0 +1,127 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "LoremNET/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/LoremNET.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/LoremNET.dll": {}
+        }
+      },
+      "ThreadingLibrary/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "LoremNet": "2.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ThreadingLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ThreadingLibrary.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LoremNET/2.0.0": {
+      "sha512": "qLvVQSAqVVQKptrbw0BV0nPJoaCp4wH38BCwCUl9cD/F6U8kLqWR1FcWqk3ATg6443rDYoI8y0lQbrVk9qDLLg==",
+      "type": "package",
+      "path": "loremnet/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/LoremNET.dll",
+        "loremnet.2.0.0.nupkg.sha512",
+        "loremnet.nuspec"
+      ]
+    },
+    "ThreadingLibrary/1.0.0": {
+      "type": "project",
+      "path": "../ThreadingLibrary/ThreadingLibrary.csproj",
+      "msbuildProject": "../ThreadingLibrary/ThreadingLibrary.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "LoremNet >= 2.0.0",
+      "ThreadingLibrary >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\veron\\.nuget\\packages\\": {},
+    "D:\\Uni\\PacketsVS\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Uni\\ISP\\L8_13\\lab8\\lab8\\lab8.csproj",
+      "projectName": "lab8",
+      "projectPath": "D:\\Uni\\ISP\\L8_13\\lab8\\lab8\\lab8.csproj",
+      "packagesPath": "C:\\Users\\veron\\.nuget\\packages\\",
+      "outputPath": "D:\\Uni\\ISP\\L8_13\\lab8\\lab8\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\Uni\\PacketsVS\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\veron\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "D:\\Uni\\ISP\\L8_13\\lab8\\ThreadingLibrary\\ThreadingLibrary.csproj": {
+              "projectPath": "D:\\Uni\\ISP\\L8_13\\lab8\\ThreadingLibrary\\ThreadingLibrary.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "dependencies": {
+          "LoremNet": {
+            "target": "Package",
+            "version": "[2.0.0, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

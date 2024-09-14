@@ -1,0 +1,4 @@
+﻿  KProgLab8.cpp
+D:\Uni\3sem\L8_KPROG\KProgLab8\KProgLab8\KProgLab8.cpp(108,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Uni\3sem\L8_KPROG\KProgLab8\KProgLab8\KProgLab8.cpp(120,25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  KProgLab8.vcxproj -> D:\Uni\3sem\L8_KPROG\KProgLab8\Debug\KProgLab8.exe
